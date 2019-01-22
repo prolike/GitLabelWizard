@@ -23,8 +23,10 @@ The script is now updated and works very well locally and manually. We need to f
 * CircleCI integration
 * Alot more features upcoming
 
-### Ideas
+### Ideas/architecture/workflow
 (Need more details. will be written later)
-- Using CircleCI to excute the script
+- Using CircleCI to pull the script and run the job
+![](https://i.gyazo.com/6da4a52520f0c383f1d72cbc264f5847.png)
 - Using CircleCI to perform a request to a serverless(server) that excutes the label creation
+![](https://i.gyazo.com/08c683df3e9aa305e8f3b333cc1fb09e.png)
 
