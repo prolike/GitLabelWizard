@@ -22,9 +22,9 @@ read -p 'Basic: ' token
 url='https://api.github.com/repos/'$usrname'/'$repo'/labels'
  
 echo $url
-delete_labels usrname repo token
 
-# Deleting standard labels in github via cURL using http://api.github.com v3
+# Deleting standard labels (check label_delete.sh) in github via cURL using http://api.github.com v3
+delete_labels usrname repo token
 
 
 
