@@ -19,7 +19,9 @@ The script is now updated and works very well locally and manually. We need to f
 * Insert a single label with cURL
 
 ### Todo
-Alot 
+* Adding recursively reading and inserting from a yml file
+* CircleCI integration
+* Alot more features upcoming
 
 ### Ideas
 (Need more details. will be written later)
