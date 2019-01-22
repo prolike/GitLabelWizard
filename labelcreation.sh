@@ -10,12 +10,16 @@ eval $(parse_yaml .label.yml "config_")
 name=$config_label1_name
 color=$config_label1_color
 description=$config_label1_description
-read -p 'BasicAuthToken: ' token
+read -p 'Username ' usrname
+read -p 'Reposotirty name: ' repo
+read -p 'Basic: ' token
 
+url='https://api.github.com/repos/'$usrname'/'$repo'/labels'
+ 
+echo $url
 #Doing curl POST with json data
 curl -X POST \
   -H 'authorization: Basic "'"$token"'"' \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -d '{"name":"'"$name"'","color":"'"$color"'","description":"'"$description"'"}' https://api.github.com/repos/prolike/gitlabelwizard/labels
+  -H 'content-type: application/vnd.github.symmetra-preview+json' \
+  -d '{"name":"'"$name"'","color":"'"$color"'","description":"'"$description"'"}' $url
 
