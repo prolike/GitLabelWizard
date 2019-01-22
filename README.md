@@ -13,8 +13,10 @@ The script is now updated and works very well locally and manually. We need to f
 
 ### Features
 * Delete standard labels
-* Insert a single label with .labels.yml file
-* ???
+* Read a single label from '.labels.yml' file
+* Recieve user input variables
+  * Input: repo-owner, repo-name, basic authentication token
+* Insert a single label with cURL
 
 ### Todo
 Alot 
