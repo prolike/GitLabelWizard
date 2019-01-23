@@ -16,12 +16,10 @@ The script is now updated and works very well locally and manually. We need to f
 Major changement of architecture
 ### Amazon API
 
-API endpoint: https://mybq6qm6ig.execute-api.us-east-2.amazonaws.com/default/helloworld
-API key: ***SECRET***
-Authorization: NONE
-Method: ANY
-Resource path: /helloworld
-Stage: default
+- API endpoint: https://mybq6qm6ig.execute-api.us-east-2.amazonaws.com/default/helloworld
+- API key: ***SECRET***
+- Authorization: NONE
+- Method: GET
 
 ### Features
 * Delete standard labels
