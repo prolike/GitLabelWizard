@@ -27,9 +27,7 @@ Major changement of architecture
 * Inserting labels
 
 ### Todo
-* Adding recursively reading and inserting from a yml file
-* CircleCI integration
-* Alot more features upcoming
+* CircleCI triggers the label script
 
 ### Ideas/architecture/workflow
 - Using CircleCI to perform a request to a **Amazon AWS API gatway** that excutes the label script within **Amazon AWS lambda**
