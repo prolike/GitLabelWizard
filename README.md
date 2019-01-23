@@ -18,7 +18,8 @@ Major changement of architecture
 
 - API endpoint: https://mybq6qm6ig.execute-api.us-east-2.amazonaws.com/default/helloworld
 - API key: ***SECRET***
-- Authorization: NONE
+- Input
+  - URL_parameter: "?repo_name=<your_repo_name>"
 - Method: GET
 
 ### Features
