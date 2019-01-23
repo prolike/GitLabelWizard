@@ -30,5 +30,5 @@ Major changement of architecture
 ### Ideas/architecture/workflow
 - Using CircleCI to perform a request to a **Amazon AWS API gatway** that excutes the label script within **Amazon AWS lambda**
 
-![](https://i.gyazo.com/39595f9cf05bdbaec1aa273319197e7d.png)
+![](https://i.gyazo.com/668723561263c5f100b028a003f9a2d7.png)
 
