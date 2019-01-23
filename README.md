@@ -11,6 +11,9 @@ We have been working on a bash script that reads a yml file and do a HTTP POST r
 
 The script is now updated and works very well locally and manually. We need to figure out the next step for implementation of automation excution of the script with CircleCI.  
 
+- 23/01/2019
+Major changement of architecture
+
 ### Features
 * Delete standard labels
 * Read a single label from '.labels.yml' file
@@ -24,9 +27,6 @@ The script is now updated and works very well locally and manually. We need to f
 * Alot more features upcoming
 
 ### Ideas/architecture/workflow
-(Need more details. will be written later)
-- Using CircleCI to pull the script and run the job
-![](https://i.gyazo.com/6da4a52520f0c383f1d72cbc264f5847.png)
-- Using CircleCI to perform a request to a serverless(server) that excutes the label creation
-![](https://i.gyazo.com/08c683df3e9aa305e8f3b333cc1fb09e.png)
+- Using CircleCI to perform a request to a *Amazon AWS API gatway* that excutes the label script within *Amazon AWS lambda*
+![](https://i.gyazo.com/39595f9cf05bdbaec1aa273319197e7d.png)
 
