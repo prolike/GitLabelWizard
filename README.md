@@ -40,9 +40,13 @@ Major changement of architecture
 ### Labels
 
 ```json
-#Urls for labels - Empty space replaced with %20
+
+# LABELS IN JSON 
+
+# Deletion labels empty space replaced with %20
 arr_labels_deletion = ["bug","duplicate","enhancement","good%20first%20issue","help%20wanted","invalid","question","wontfix"]
 
+# Creation labels
 arr_labels_creation =  [{"name":"Action - awaiting feed-back","color": "6EB82C","description":""},
  {"name":"Action - needs grooming","color": "009800","description":""},
  {"name":"Briefing","color": "C7DEF8","description":""},
