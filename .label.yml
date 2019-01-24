@@ -1,12 +1,59 @@
-label1:
-  name: hehe2
-  color: ffffff
-  description: its a test
-label2:
-  name: hehe
-  color: ffffff
-  description: its a test
-label3:
-  name: hehe3
-  color: ffffff
-  description: its a test
+labels_creation:
+  - name: Action - awaiting feed-back
+    color: 6EB82C
+    description: ''
+  - name: Action - needs grooming
+    color: 009800
+    description: ''
+  - name: Briefing
+    color: C7DEF8
+    description: ''
+  - name: Prio 1 - must have
+    color: E83D0F
+    description: ''
+  - name: Prio 2 - should have
+    color: EB6420
+    description: ''
+  - name: Prio 3 - could have
+    color: E8850F
+    description: ''
+  - name: Prio 4 - won't have
+    color: E8A80F
+    description: ''
+  - name: Size 1 - small
+    color: 20B4E5
+    description: ''
+  - name: Size 2 - medium
+    color: 208FE5
+    description: ''
+  - name: Size 3 - large
+    color: 0052CC
+    description: ''
+  - name: Size 4 - too big
+    color: 100B6B
+    description: ''
+  - name: Status - duplicate
+    color: 111111
+    description: ''
+  - name: Status - to do
+    color: EDEDED
+    description: ''
+  - name: Status - in progress
+    color: EDEDED
+    description: ''
+  - name: Status - up next
+    color: EEEEEE
+    description: ''
+  - name: Tech-challenge
+    color: 5319E7
+    description: ''
+labels_deletion:
+  - name: bug
+  - name: duplicate
+  - name: enhancement
+  - name: good%20first%20issue
+  - name: help%20wanted
+  - name: invalid
+  - name: question
+  - name: wontfix
+
