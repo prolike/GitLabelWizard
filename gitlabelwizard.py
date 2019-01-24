@@ -4,35 +4,19 @@ from botocore.vendored import requests
 
 ## TODO
 ## 1. Replace repoowner with "prolike"
-repo_owner = "ansty93"
+repo_owner = "internshipprolike"
 
+# Authentication token in environment variables (BASIC)
 token = os.environ['basic_token']
 
-# Deletion labels 
-## Empty space replaced with %20, since we will use these labels to do http 
-## request, and we cant have empty space in url 
-arr_labels_deletion = ["bug","duplicate","enhancement","good%20first%20issue",
-"help%20wanted","invalid","question","wontfix"]
+filename_label_creation = "labels_creation.json"
+filename_label_deletion = "labels_deletion.json"
 
-# Creation labels
-arr_labels_creation =  
-[{"name":"Action - awaiting feed-back","color": "6EB82C","description":""},
- {"name":"Action - needs grooming","color": "009800","description":""},
- {"name":"Briefing","color": "C7DEF8","description":""},
- {"name":"Prio 1 - must have","color": "E83D0F","description":""},
- {"name":"Prio 2 - should have","color": "EB6420","description":""},
- {"name":"Prio 3 - could have","color": "E8850F","description":""},
- {"name":"Prio 4 - won't have","color": "E8A80F","description":""},
- {"name":"Size 1 - small","color": "20B4E5","description":""},
- {"name":"Size 2 - medium","color": "208FE5","description":""},
- {"name":"Size 3 - large","color": "0052CC","description":""},
- {"name":"Size 4 - too big","color": "100B6B","description":""},
- {"name":"Status - duplicate","color": "111111","description":""},
- {"name":"Status - to do","color": "EDEDED","description":""},
- {"name":"Status - in progress","color": "EDEDED","description":""},
- {"name":"Status - up next","color": "EEEEEE","description":""},
- {"name":"Tech-challenge","color": "5319E7","description":""}]
-
+def load_labels_from_json(filename):
+    with open(filename) as f:
+        arr_json = json.load(f)
+    return arr_json
+    
 def label_deletion(repo_name,label,token):
     url = "https://api.github.com/repos/"+repo_owner+"/"+repo_name+"/labels/"+label
     headers = {'Authorization':'Basic '+token}
@@ -49,22 +33,33 @@ def label_creation(repo_name,label,token):
     
 # The main func
 def lambda_handler(event, context):
-    
-    #repo_name = event['queryStringParameters']['repo_name']
-    repo_name = event['repo_name']
-    print(token)
+    repo_name = ""
     try:
-        for label in arr_labels_deletion:
-            r = label_deletion(repo_name,label,token)
-        for label in arr_labels_creation:
-            r = label_creation(repo_name,label,token)
+        body = json.loads(event['body'])
+        repo_name = body["repository"]["name"]
+        action = str(body["action"])
+        if action != "created":
+            raise Exception("ACTION IS NOT CREATED")
+        else:
+            
+            arr_labels_creation = load_labels_from_json(filename_label_creation)
+            arr_labels_deletion = load_labels_from_json(filename_label_deletion)
+            
+            for label in arr_labels_deletion:
+                label["name"] = label["name"].replace(" ","%20")
+                
+            for label in arr_labels_deletion:
+                r = label_deletion(repo_name,label["name"],token)
+                
+            for label in arr_labels_creation:
+                r = label_creation(repo_name,label,token)
     except Exception as e:
-         return {
-        'statusCode': 400,
-        'body': json.dumps(e)
+        return {
+            'statusCode': 400,
+            'body': json.dumps(str(e))
         }
-    finally:
+    else:
         return {
             'statusCode': 200,
-            'body': json.dumps("200 OK - Label smoothly created and deleted")
+            'body': json.dumps("OK")
         }
