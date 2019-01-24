@@ -13,7 +13,7 @@ The script is now updated and works very well locally and manually. We need to f
 
 - **23/01/2019**
 
-Major change in architecture: The script has been rewritten to Python and is now up and running on AWS Lambda. The goal is then to automate it with CircleCI by making it run on build (in the config.yml file), but only the first time it is build or when the script has been altered. We are still in doubt how this should be done right, but an idea could be to use YML key attributes like ``when``, ``unless``or ``condition``.
+Major change in architecture: The script has been rewritten to Python and is now up and running on AWS Lambda. The goal is then to automate it with CircleCI by making it run on build (in the config.yml file), but only the first time it is build or when the script has been altered. We are still in doubt how this should be done right, but an idea could be to use YML key attributes like ``when``, ``unless``or ``condition``. Our flowchart has also been updated.
 
 - **24/01/2019**
 
