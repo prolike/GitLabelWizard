@@ -24,7 +24,7 @@ Instead of using CircleCI to automate the label process, we have experimented wi
 ### Labels
 
 #### JSON
-!(https://github.com/prolike/GitLabelWizard/blob/master/labels_creation.json)
-!(https://github.com/prolike/GitLabelWizard/blob/master/labels_deletion.json)
+https://github.com/prolike/GitLabelWizard/blob/master/labels_creation.json
+https://github.com/prolike/GitLabelWizard/blob/master/labels_deletion.json
 #### YML
-!(https://github.com/prolike/GitLabelWizard/blob/master/.label.yml)
+https://github.com/prolike/GitLabelWizard/blob/master/.label.yml
