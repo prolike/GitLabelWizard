@@ -2,6 +2,15 @@
 
 # GitLabelWizard
 
+## References
+https://developer.github.com/v3/issues/labels/
+https://developer.github.com/v3/orgs/hooks/#create-a-hook
+https://developer.github.com/v3/activity/events/types/#repositoryevent
+https://aws.amazon.com/lambda/
+
+## Architecture
+TODO
+
 ### Status
 - **21/01/2019**
 
