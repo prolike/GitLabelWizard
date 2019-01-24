@@ -19,48 +19,12 @@ Major change in architecture: The script has been rewritten to Python and is now
 
 Instead of using CircleCI to automate the label process, we have experimented with GitHub webhooks. By combining it with our AWS Lambda API, we can make it trigger when a new repository is ``created``, ``archived``, ``unarchived`` and ``deleted``. The point is to limit this to only trigger on repository creation, but we are still not sure how to do this. At the same time, we could only get the webhook to function with an open API without authorization, which is not an ideal solution.
 
-### Amazon API
-
-- API endpoint: https://mybq6qm6ig.execute-api.us-east-2.amazonaws.com/default/helloworld
-- API key: ***SECRET***
-- **Input**
-  - **Parameter:** "?repo_name=<your_repo_name>"
-- Method: GET
-
-### Features
-* Delete standard labels
-* Inserting labels
-
-### Todo
-* CircleCI triggers the label script
-
 
 
 ### Labels
 
-```json
-
-# LABELS IN JSON 
-
-# Deletion labels empty space replaced with %20
-arr_labels_deletion = ["bug","duplicate","enhancement","good%20first%20issue","help%20wanted","invalid","question","wontfix"]
-
-# Creation labels
-arr_labels_creation =  [{"name":"Action - awaiting feed-back","color": "6EB82C","description":""},
- {"name":"Action - needs grooming","color": "009800","description":""},
- {"name":"Briefing","color": "C7DEF8","description":""},
- {"name":"Prio 1 - must have","color": "E83D0F","description":""},
- {"name":"Prio 2 - should have","color": "EB6420","description":""},
- {"name":"Prio 3 - could have","color": "E8850F","description":""},
- {"name":"Prio 4 - won't have","color": "E8A80F","description":""},
- {"name":"Size 1 - small","color": "20B4E5","description":""},
- {"name":"Size 2 - medium","color": "208FE5","description":""},
- {"name":"Size 3 - large","color": "0052CC","description":""},
- {"name":"Size 4 - too big","color": "100B6B","description":""},
- {"name":"Status - duplicate","color": "111111","description":""},
- {"name":"Status - to do","color": "EDEDED","description":""},
- {"name":"Status - in progress","color": "EDEDED","description":""},
- {"name":"Status - up next","color": "EEEEEE","description":""},
- {"name":"Tech-challenge","color": "5319E7","description":""}]
-
-```
+#### JSON
+!(https://github.com/prolike/GitLabelWizard/blob/master/labels_creation.json)
+!(https://github.com/prolike/GitLabelWizard/blob/master/labels_deletion.json)
+#### YML
+!(https://github.com/prolike/GitLabelWizard/blob/master/.label.yml)
