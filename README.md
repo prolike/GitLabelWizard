@@ -12,8 +12,11 @@ We have been working on a bash script that reads a yml file and do a HTTP POST r
 The script is now updated and works very well locally and manually. We need to figure out the next step for implementation of automation excution of the script with CircleCI.  
 
 - **23/01/2019**
-
 Major changement of architecture
+
+**24/01/2019**
+Instead of using CircleCI to automate the label process, we have experimented with GitHub webhooks. By combining it with our AWS Lambda API, we can make it trigger when a new repository is created, archived, unarchived and deleted. The point is to limit it to only trigger on creation, but we are still not sure how to do this exactly. At the same time, we could also only get the webhook to function with an open API aka without authorization, which is not an ideal solution.
+
 ### Amazon API
 
 - API endpoint: https://mybq6qm6ig.execute-api.us-east-2.amazonaws.com/default/helloworld
