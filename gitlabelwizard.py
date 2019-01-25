@@ -6,7 +6,7 @@ import file_handler
 import github_handler
 
 repo_owner = "internshipprolike"
-repo_name = "test"
+repo_name = "test13"
 
 def is_modified(sha):
     local_sha = file_handler.load_sha()
@@ -41,4 +41,13 @@ def test():
     arr_labels_delete = file_handler.load_labels_from_json_file("labels_deletion.json")
     github_handler.insert_labels_repo(repo_owner,repo_name,arr_labels)
     github_handler.delete_labels_repo(repo_owner,repo_name,arr_labels_delete)
-test()
+
+def test_yml():
+    yml = github_handler.read_yml_from_repo(repo_owner,repo_name)
+    print(yml.text)
+    file_handler.save_yml(yml.text)
+    print(file_handler.yml_to_json(".labels.yml"))
+
+test_yml()
+
+
