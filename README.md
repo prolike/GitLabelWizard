@@ -29,6 +29,9 @@ Major change in architecture: The script has been rewritten to Python and is now
 Instead of using CircleCI to automate the label process, we have experimented with GitHub webhooks. By combining it with our AWS Lambda API, we can make it trigger when a new repository is ``created``, ``archived``, ``unarchived`` and ``deleted``. The point is to limit this to only trigger on repository creation, but we are still not sure how to do this. At the same time, we could only get the webhook to function with an open API without authorization, which is not an ideal solution.
 
 
+- **25/01/2019**
+
+We refactored our code-base and split the methods up to each own files. Now the code-base looks more readiable
 
 ### Labels
 
