@@ -1,8 +1,7 @@
 behavior:
   - labels:
-      github-defaults: ignore | safe-delete
-      undefined: ignore | safe-delete
-
+      github-defaults: safe-delete
+      undefined: safe-delete
 actions:
   - label:
       name: "Action - awaiting feed-back"
