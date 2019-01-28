@@ -1,59 +1,93 @@
-labels_creation:
-  - name: Action - awaiting feed-back
-    color: 6EB82C
-    description: ''
-  - name: Action - needs grooming
-    color: 009800
-    description: ''
-  - name: Briefing
-    color: C7DEF8
-    description: ''
-  - name: Prio 1 - must have
-    color: E83D0F
-    description: ''
-  - name: Prio 2 - should have
-    color: EB6420
-    description: ''
-  - name: Prio 3 - could have
-    color: E8850F
-    description: ''
-  - name: Prio 4 - won't have
-    color: E8A80F
-    description: ''
-  - name: Size 1 - small
-    color: 20B4E5
-    description: ''
-  - name: Size 2 - medium
-    color: 208FE5
-    description: ''
-  - name: Size 3 - large
-    color: 0052CC
-    description: ''
-  - name: Size 4 - too big
-    color: 100B6B
-    description: ''
-  - name: Status - duplicate
-    color: 111111
-    description: ''
-  - name: Status - to do
-    color: EDEDED
-    description: ''
-  - name: Status - in progress
-    color: EDEDED
-    description: ''
-  - name: Status - up next
-    color: EEEEEE
-    description: ''
-  - name: Tech-challenge
-    color: 5319E7
-    description: ''
-labels_deletion:
-  - name: bug
-  - name: duplicate
-  - name: enhancement
-  - name: good%20first%20issue
-  - name: help%20wanted
-  - name: invalid
-  - name: question
-  - name: wontfix
+behavior:
+  - labels:
+      github-defaults: ignore | safe-delete
+      undefined: ignore | safe-delete
 
+actions:
+  - label:
+      name: "Action - awaiting feed-back"
+      description: "Used to mark a label as being in a wait state - must be assigned to someone when in this state"
+      color:       "#6EB82C"
+      weight:
+  - label:
+      name:        "Action - needs grooming"
+      description: "Used to mark an issue for further grooming - must be assigned to someone when in this state"
+      color:       "#009800"
+      weight:
+  - label:
+      name:        "Tech-challenge"
+      description: "Used to mark an issue as challenge, which requires help"
+      color:       "#5319E7"
+      weight:
+
+stories:
+  - label:
+      name:        "Briefing"
+      description: "Used to indicate that this is a briefing (story) - workable issues will spawn off from this"
+      color:       "#C7DEF8"
+      weight:
+
+priorities:
+  - label:
+      name:        "Prio 1 - must have"
+      description: ""
+      color:       "#E83D0F"
+      weight:      30
+  - label:
+      name:        "Prio 2 - should have"
+      description: ""
+      color:       "#EB6420"
+      weight:      20
+  - label:
+      name:        "Prio 3 - could have"
+      description: ""
+      color:       "#E8850F"
+      weight:      10
+  - label:
+      name:        "Prio 4 - won't have"
+      description:
+      color:       "#E8A80F"
+      weight:      -100
+
+sizes:
+  - label:
+      name:        "Size 1 - small"
+      description:
+      color:       "#20B4E5"
+      weight:      1
+  - label:
+      name:        "Size 2 - medium"
+      description:
+      color:       "#208FE5"
+      weight:      2
+  - label:
+      name:        "Size 3 - large"
+      description:
+      color:       "#0052CC"
+      weight:      3
+  - label:
+      name:        "Size 4 - too big"
+      description:
+      color:       "#100B6B"
+      weight:      0
+statuses:
+  - label:
+      name:        "Status - duplicate"
+      description:
+      color:       "#111111"
+      weight:
+  - label:
+      name:        "Status - to do"
+      description:
+      color:       "#EDEDED"
+      weight:
+  - label:
+      name:        "Status - in progress"
+      description:
+      color:       "#EDEDED"
+      weight:
+  - label:
+      name:       "Status - up next"
+      description:
+      color:       "#EDEDED"
+      weight:
