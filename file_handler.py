@@ -1,26 +1,26 @@
 # file_handler.py
 # Author: Ansty93 - ansty93@gmail.com
-# Author: cph-lh
 import json
 from ruamel.yaml import YAML
 # Handling the files, saving and loading
-
+sha_filename = "SHA.txt"
+yml_filename = ".labels.yml"
 #Prevents execution of arbitary code from YAML file - might not be needed though
 yaml = YAML(typ="safe")
 
 def load_sha():
     try:
-        f = open("commitid.txt","r")
+        f = open(sha_filename,"r")
         sha=f.read()
     except FileNotFoundError:
-        f = open("commitid.txt","w+")
+        f = open(sha_filename,"w+")
         f.close()
         return None
     else:
         return sha
 
 def save_sha(sha):
-    f = open("commitid.txt","w+")
+    f = open(sha_filename,"w+")
     f.write(sha)
     f.close()
 
@@ -35,11 +35,15 @@ def format_deletion_labels(arr_json):
      label["name"] = label["name"].replace(" ","%20")
 
 #Reads a YAML file and returns a JSON string
-def yml_to_json(yml):
-    with open(yml) as f:
+def load_json_from_yml_file():
+    with open(yml_filename) as f:
         json_string = json.dumps(yaml.load(f))
 #        print("SUCCESS")
     return json_string
+
+#Reads a YAML file and returns a JSON string
+def parse_yml_to_json(string):
+    return yaml.load(string)
 
 def save_yml(yml):
     f = open(".labels.yml","w+")
