@@ -5,29 +5,47 @@ import os
 import file_handler
 import github_handler
 
+label_name = ".labels.yml"
 repo_owner = "internshipprolike"
-repo_name = "test13"
+repo_name = "asdx"
+
+# def contains_labels_file(json):
+#     for commit in json["commits"]:
+#       for file in commit["added"]:
+#           if file == ".labels.yml":
+#               return true
+#       for file in commit["modified"]:
+#           if file == ".labels.yml":
+#               return true
+#     return false
 
 def is_modified(sha):
     local_sha = file_handler.load_sha()
     return sha != local_sha
 
+
 # The main func
 def lambda_handler(event, context):
-    repo_name = ""
     try:
         body = json.loads(event['body'])
         repo_name = body["repository"]["name"]
         repo_owner = body["repository"]["owner"]["login"]
-        action = body["action"]
-        if action != "created":
-            raise Exception("ACTION IS NOT *CREATED* - ABORTING MISSION")
+        label_json = get_commits_for_file(repo_owner,repo_name,label_name)
+        if not label_json:
+            raise Exception("ERROR: .labels.yml missing")
         else:
-        	#arr_labels = file_handler.
-            github_handler.update_single_repo(repo_owner,repo_name)
+            text = github_handler.read_yml_from_repo(repo_owner,repo_name,label_name)
+            json = file_handler.parse_yml_to_json(text)
+            arr_labels = []
+            for key in json:
+                if key != "behavior":
+                    for val in json[key]:
+                        val["label"]["color"] = val["label"]["color"].replace("#","")
+                        arr_labels.append(val["label"])
+
     except Exception as e:
         return {
-            'statusCode': 400,
+            'statusCode': 404,
             'body': json.dumps(str(e))
         }
     else:
@@ -35,19 +53,4 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'body': json.dumps("OK")
         }
-
-def test():
-    arr_labels = file_handler.load_labels_from_json_file("labels_creation.json")
-    arr_labels_delete = file_handler.load_labels_from_json_file("labels_deletion.json")
-    github_handler.insert_labels_repo(repo_owner,repo_name,arr_labels)
-    github_handler.delete_labels_repo(repo_owner,repo_name,arr_labels_delete)
-
-def test_yml():
-    yml = github_handler.read_yml_from_repo(repo_owner,repo_name)
-    print(yml.text)
-    file_handler.save_yml(yml.text)
-    print(file_handler.yml_to_json(".labels.yml"))
-
-test_yml()
-
 

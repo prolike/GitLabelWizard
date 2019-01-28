@@ -7,23 +7,33 @@ import os
 import json
 
 api_url = "https://api.github.com"
-file_url = "https://raw.githubusercontent.com"
-os.environ["BASIC_TOKEN"] = "YW5zdHk5MzpTb2x2ZTk5R0g"
+raw_url = "https://raw.githubusercontent.com"
 # Authentication token in environment variables (BASIC)
 token = os.environ['BASIC_TOKEN']
-label_config_filename = ".labels.yml"
+
+
 
 
 # Load the sha hash from the latest commit for a given file
-def get_latest_sha_for_file(url,filename):
-    r = requests.get(url+"/commits?"+filename)
-    sha = r.json()[0]["sha"]
+def get_commits_for_file(repo_owner,repo_name,filename):
+    r = requests.get(api_url+"/repos"+"/"+repo_owner+"/"+repo_name+"/commits?path="+filename)
+    return r.json()
+
+# Load the sha hash from the latest commit for a given file
+def get_all_labels_for_repo(repo_owner,repo_name):
+    r = requests.get(api_url+"/repos"+"/"+repo_owner+"/"+repo_name+"/labels")
+    return r.json()
+
+# Load the sha hash from the latest commit for a given file
+def get_latest_sha(json):
+    sha = json[0]["sha"]
     return sha
 
-def get_all_repos_in_organization(organization_name):
-    url = api_url+"/orgs/"+organization_name+"/repos"
-    r = requests.get(url)
-    return r
+# def get_all_repos_in_organization(organization_name):
+#     url = api_url+"/orgs/"+organization_name+"/repos"
+#     r = requests.get(url)
+#     return r
+
 
 
 def insert_labels_repo(repo_owner,repo_name,arr_labels):
@@ -34,9 +44,10 @@ def delete_labels_repo(repo_owner,repo_name,arr_labels):
     for label in arr_labels:
         label_handler.label_remove(api_url,repo_owner,repo_name,label,token)
 
-def read_yml_from_repo(repo_owner,repo_name):
-    r = requests.get(file_url+"/"+repo_owner+"/"+repo_name+"/master/"+label_config_filename)
-    return r
+def read_yml_from_repo(repo_owner,repo_name,filename):
+    r = requests.get(raw_url+"/"+repo_owner+"/"+repo_name+"/master/"+filename)
+    return r.text
+
 
 # def update_single_repo(repo_owner,repo_name,arr_labels):
 #     for label in arr_labels["label_creation"]:
@@ -45,3 +56,5 @@ def read_yml_from_repo(repo_owner,repo_name):
 #     for label in arr_labels["label_deletion"]:
 #         r = githublabel_deletion(repo_name,label["name"],token)
 #     
+
+
