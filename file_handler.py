@@ -26,9 +26,6 @@ def save_sha(sha):
     f.write(sha)
     f.close()
 
-# Replaces space with '%20' to make it URL friendly 
-def format_deletion_labels(arr_json):
-     label["name"] = label["name"].replace(" ","%20")
 
 #Converts YML text into JSON
 def parse_yml_to_json(string):

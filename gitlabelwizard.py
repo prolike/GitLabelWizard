@@ -5,16 +5,12 @@ import os
 import file_handler
 import github_handler
 
+
 label_name = ".labels.yml"
+#api_key_local = os.environ['API_KEY']
 
-#Dev variables
-#repo_owner = "prolike"
-#repo_name = "gitlabelwizard"
-
-#Dev variables
+repo_name = "zz9"
 repo_owner = "internshipprolike"
-repo_name = "testasd"
-
 
 def is_modified(sha):
     local_sha = file_handler.load_sha()
@@ -73,24 +69,27 @@ def get_safe_delete_labels(repo_owner,repo_name):
     remove_labels_safe = diff_between_2_lists(remove_labels,issues_labels)
     return remove_labels_safe
 
+def main(repo_owner,repo_name):
+    yml_json = parse_from_yml(repo_owner,repo_name)
+    arr_labels_insert = get_inserting_from_json(yml_json)
+    github_handler.insert_labels_repo(repo_owner,repo_name,arr_labels_insert)
+    if yml_json["behavior"][0]["labels"]["undefined"] == "safe-delete":
+        arr_labels_remove_safe = get_safe_delete_labels(repo_owner,repo_name)
+        github_handler.delete_labels_repo(repo_owner,repo_name,arr_labels_remove_safe)
+    
 # The main func
 def lambda_handler(event, context):
     try:
-        body = json.loads(event['body'])
-        repo_name = body["repository"]["name"]
-        repo_owner = body["repository"]["owner"]["login"]
-        label_json = get_commits_for_file(repo_owner,repo_name,label_name)
+        repo_name = "zz5"
+        repo_owner = "internshipprolike"
+        #body = json.loads(event['body'])
+        #repo_name = body["repository"]["name"]
+        #repo_owner = body["repository"]["owner"]["login"]
+        label_json = github_handler.get_commits_for_file(repo_owner,repo_name,label_name)
         if not label_json:
             raise Exception("ERROR: .labels.yml missing")
         else:
-            yml_json = parse_from_yml(repo_owner,repo_name)
-            arr_labels_insert = get_inserting_from_json(yml_json)
-            github_handler.insert_labels_repo(repo_owner,repo_name,arr_labels_insert)
-            if yml_json["behavior"][0]["labels"]["undefined"] == "safe-delete":
-                arr_labels_remove_safe = get_safe_delete_labels(repo_owner,repo_name)
-                github_handler.delete_labels_repo(repo_owner,repo_name,arr_labels_remove_safe)
-           
-            
+            main(repo_owner,repo_name)
     except Exception as e:
         return {
             'statusCode': 404,
@@ -102,3 +101,5 @@ def lambda_handler(event, context):
             'body': json.dumps("OK")
         }
 
+
+main(repo_owner,repo_name)

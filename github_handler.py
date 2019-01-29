@@ -5,11 +5,12 @@ import label_handler
 import requests
 import os
 import json
+import grequests
 
 api_url = "https://api.github.com"
 raw_url = "https://raw.githubusercontent.com"
 # Authentication token in environment variables (BASIC)
-token = os.environ['BASIC_TOKEN']
+token = "YW5zdHk5MzpTb2x2ZTk5R0g"
 
 # Gets the commits for a given file, returns a JSON dict
 def get_commits_for_file(repo_owner,repo_name,filename):
@@ -33,8 +34,19 @@ def get_latest_sha(json):
 
 # Inserts desired labels into the repository
 def insert_labels_repo(repo_owner,repo_name,arr_labels):
+    url = api_url+"/repos/"+repo_owner+"/"+repo_name+"/labels"
+    #print(url)
+    #label = {"name":"pythonboy3222asd222222","color":"ffffff","description":"Its a test"}
+    headers = {'Content-type': 'application/vnd.github.symmetra-preview+json',
+                'Authorization':'Basic '+token}
+    arr_requests = []
     for label in arr_labels:
-        label_handler.label_insert(api_url,repo_owner,repo_name,label,token)
+        rs = grequests.post(url, data=label,headers=headers)
+        arr_requests.append(rs)
+    results = grequests.map(unsent_request)  
+    print(results)
+    
+        
 
 # Deletes undesired labels from the repository
 def delete_labels_repo(repo_owner,repo_name,arr_labels):
