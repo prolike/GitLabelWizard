@@ -6,18 +6,11 @@ import file_handler
 import github_handler
 
 label_name = ".labels.yml"
+
+#Dev variable
 repo_owner = "internshipprolike"
 repo_name = "asdx"
 
-# def contains_labels_file(json):
-#     for commit in json["commits"]:
-#       for file in commit["added"]:
-#           if file == ".labels.yml":
-#               return true
-#       for file in commit["modified"]:
-#           if file == ".labels.yml":
-#               return true
-#     return false
 
 def is_modified(sha):
     local_sha = file_handler.load_sha()

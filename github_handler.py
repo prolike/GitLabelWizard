@@ -12,8 +12,6 @@ raw_url = "https://raw.githubusercontent.com"
 token = os.environ['BASIC_TOKEN']
 
 
-
-
 # Load the sha hash from the latest commit for a given file
 def get_commits_for_file(repo_owner,repo_name,filename):
     r = requests.get(api_url+"/repos"+"/"+repo_owner+"/"+repo_name+"/commits?path="+filename)
@@ -28,13 +26,6 @@ def get_all_labels_for_repo(repo_owner,repo_name):
 def get_latest_sha(json):
     sha = json[0]["sha"]
     return sha
-
-# def get_all_repos_in_organization(organization_name):
-#     url = api_url+"/orgs/"+organization_name+"/repos"
-#     r = requests.get(url)
-#     return r
-
-
 
 def insert_labels_repo(repo_owner,repo_name,arr_labels):
     for label in arr_labels:
@@ -56,5 +47,10 @@ def read_yml_from_repo(repo_owner,repo_name,filename):
 #     for label in arr_labels["label_deletion"]:
 #         r = githublabel_deletion(repo_name,label["name"],token)
 #     
+
+# def get_all_repos_in_organization(organization_name):
+#     url = api_url+"/orgs/"+organization_name+"/repos"
+#     r = requests.get(url)
+#     return r
 
 
