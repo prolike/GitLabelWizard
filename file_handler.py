@@ -2,11 +2,12 @@
 # Author: Ansty93 - ansty93@gmail.com
 import json
 from ruamel.yaml import YAML
+
 # Handling the files, saving and loading
 sha_filename = "SHA.txt"
 yml_filename = ".labels.yml"
 
-#Prevents execution of arbitary code from YAML file - might not be needed though
+#Prevents execution of arbitary code from YAML file - might not be needed
 yaml = YAML(typ="safe")
 
 def load_sha():
@@ -24,11 +25,12 @@ def save_sha(sha):
     f = open(sha_filename,"w+")
     f.write(sha)
     f.close()
- 
+
+# Replaces space with '%20' to make it URL friendly 
 def format_deletion_labels(arr_json):
      label["name"] = label["name"].replace(" ","%20")
 
-#Reads a YAML file and returns a JSON string
+#Converts YML text into JSON
 def parse_yml_to_json(string):
     return yaml.load(string)
 
