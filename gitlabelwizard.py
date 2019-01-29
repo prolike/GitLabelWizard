@@ -7,7 +7,7 @@ import github_handler
 
 label_name = ".labels.yml"
 
-#Dev variable
+#Dev variables
 repo_owner = "internshipprolike"
 repo_name = "asdx"
 
