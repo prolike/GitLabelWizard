@@ -10,7 +10,7 @@ import grequests
 api_url = "https://api.github.com"
 raw_url = "https://raw.githubusercontent.com"
 # Authentication token in environment variables (BASIC)
-token = "YW5zdHk5MzpTb2x2ZTk5R0g"
+token = 
 
 # Gets the commits for a given file, returns a JSON dict
 def get_commits_for_file(repo_owner,repo_name,filename):
