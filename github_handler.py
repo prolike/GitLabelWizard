@@ -39,7 +39,14 @@ def insert_labels_repo(repo_owner,repo_name,arr_labels):
 # Deletes undesired labels from the repository
 def delete_labels_repo(repo_owner,repo_name,arr_labels):
     for label in arr_labels:
-        label_handler.label_remove(api_url,repo_owner,repo_name,label,token)
+        formatted_label = format_deletion_labels(label)
+        print(formatted_label)
+        label_handler.label_remove(api_url,repo_owner,repo_name,formatted_label,token)
+
+# Replaces space with '%20' to make it URL friendly 
+def format_deletion_labels(label):
+     formatted_label = label.replace(" ","%20")
+     return formatted_label
 
 # Reads the raw content of a given file, returns it as text
 def read_yml_from_repo(repo_owner,repo_name,filename):
