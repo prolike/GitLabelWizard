@@ -1,6 +1,5 @@
 behavior:
   - labels:
-      github-defaults: safe-delete
       undefined: safe-delete
 actions:
   - label:
