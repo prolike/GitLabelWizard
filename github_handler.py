@@ -21,6 +21,11 @@ def get_all_labels_for_repo(repo_owner,repo_name):
     r = requests.get(api_url+"/repos"+"/"+repo_owner+"/"+repo_name+"/labels")
     return r.json()
 
+# Gets a list of all labels currently in the repository, returns a JSON dict
+def get_all_issues_for_repo(repo_owner,repo_name):
+    r = requests.get(api_url+"/repos"+"/"+repo_owner+"/"+repo_name+"/issues")
+    return r.json()
+
 # Load the sha hash from the latest commit for a given file
 def get_latest_sha(json):
     sha = json[0]["sha"]

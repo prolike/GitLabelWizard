@@ -15,7 +15,17 @@ repo_name = "asdx"
 def is_modified(sha):
     local_sha = file_handler.load_sha()
     return sha != local_sha
+    
+def get_labels_as_list(repo_owner,repo_name):
+    labels_json = github_handler.get_all_labels_for_repo(repo_owner,repo_name)
+    label_list = []
+    for label in labels_json:
+        label_list.append(label["name"])
+    return label_list
 
+def diff_between_2_lists(all_labels,inserting_labels):
+    diff_list = [ii for ii in all_labels if ii not in inserting_labels]
+    return diff_list
 
 # The main func
 def lambda_handler(event, context):
