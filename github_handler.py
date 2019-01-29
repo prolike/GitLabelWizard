@@ -11,13 +11,12 @@ raw_url = "https://raw.githubusercontent.com"
 # Authentication token in environment variables (BASIC)
 token = os.environ['BASIC_TOKEN']
 
-
-# Load the sha hash from the latest commit for a given file
+# Gets the commits for a given file, returns a JSON dict
 def get_commits_for_file(repo_owner,repo_name,filename):
     r = requests.get(api_url+"/repos"+"/"+repo_owner+"/"+repo_name+"/commits?path="+filename)
     return r.json()
 
-# Load the sha hash from the latest commit for a given file
+# Gets a list of all labels currently in the repository, returns a JSON dict
 def get_all_labels_for_repo(repo_owner,repo_name):
     r = requests.get(api_url+"/repos"+"/"+repo_owner+"/"+repo_name+"/labels")
     return r.json()
@@ -27,18 +26,20 @@ def get_latest_sha(json):
     sha = json[0]["sha"]
     return sha
 
+# Inserts desired labels into the repository
 def insert_labels_repo(repo_owner,repo_name,arr_labels):
     for label in arr_labels:
         label_handler.label_insert(api_url,repo_owner,repo_name,label,token)
 
+# Deletes undesired labels from the repository
 def delete_labels_repo(repo_owner,repo_name,arr_labels):
     for label in arr_labels:
         label_handler.label_remove(api_url,repo_owner,repo_name,label,token)
 
+# Reads the raw content of a given file, returns it as text
 def read_yml_from_repo(repo_owner,repo_name,filename):
     r = requests.get(raw_url+"/"+repo_owner+"/"+repo_name+"/master/"+filename)
     return r.text
-
 
 # def update_single_repo(repo_owner,repo_name,arr_labels):
 #     for label in arr_labels["label_creation"]:
@@ -52,5 +53,3 @@ def read_yml_from_repo(repo_owner,repo_name,filename):
 #     url = api_url+"/orgs/"+organization_name+"/repos"
 #     r = requests.get(url)
 #     return r
-
-
