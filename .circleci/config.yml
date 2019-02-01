@@ -1,9 +1,11 @@
 version: 2
 jobs:
+
+
   integrate:
     working_directory: /app
     docker:
-      - image: circleci/python:3.6.1 # Docker with python 3.60
+      - image: node:10
     steps:
       - checkout
       - run:
@@ -21,38 +23,35 @@ jobs:
   build:
     working_directory: /app
     docker:
-      - image: circleci/python:3.6.1 # Docker with python 3.60
+      - image: node:10
     steps:
       - checkout
+
       - run:
           name: Swap to target branch and integrate
           command: ./play --manuscript .circleci/manuscript.yml --part integrate
+
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
       # run tests!
-      - run:
-          name: run tests
-          command: |
-            . venv/bin/activate
-            python test/manage.py test
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
+      - run: npm test
 
   deliver:
     working_directory: /app
     docker:
-      - image: circleci/python:3.6.1 # Docker with python 3.60
+      - image: node:10
     steps:
       - checkout
 
@@ -69,37 +68,30 @@ jobs:
   dev_test:
     working_directory: /app
     docker:
-      - image: circleci/python:3.6.1 # Docker with python 3.60
+      - image: node:10
     steps:
       - checkout
-      - run:
-          name: Swap to target branch and integrate
-          command: ./play --manuscript .circleci/manuscript.yml --part integrate
+
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
       # run tests!
-      - run:
-          name: run tests
-          command: |
-            . venv/bin/activate
-            python test/manage.py test
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
+      - run: npm test
 
 workflows:
   version: 2
-  gitlabelwizard:
+  tenak-reference-guide:
     jobs:
       - integrate:
           filters:
