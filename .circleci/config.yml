@@ -43,10 +43,6 @@ jobs:
       - image: circleci/python:3.6-jessie-browsers
     steps:
       - checkout
-      - run:
-          command: |
-            git config --global user.email "spam@spammerino.com"
-            git config --global user.name "test McTest"
       - run: sudo pip3 install -r ./api1/requirements.txt -t ./
       - run: sudo pip3 install -r ./api2/requirements.txt -t ./
       - run: python3 ./test/test.py
@@ -66,11 +62,6 @@ jobs:
       - image: circleci/python:3.6-jessie-browsers
     steps:
       - checkout
-      - run:
-          name: Git setup
-          command: |
-            sudo git config --global user.email "spam@spammerino.com"
-            sudo git config --global user.name "test McTest" 
       - run: sudo pip3 install -r /home/circleci/project/api1/requirements.txt -t ./
       - run: sudo pip3 install -r /home/circleci/project/api2/requirements.txt -t ./
       - run:
