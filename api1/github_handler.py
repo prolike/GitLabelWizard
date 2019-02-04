@@ -1,8 +1,8 @@
 import json
 import os
-#from botocore.vendored import requests
+from botocore.vendored import requests
 from ruamel.yaml import YAML
-import requests 
+#import requests 
 
 api_url = "https://api.github.com"
 api_url_raw = "https://raw.githubusercontent.com"
