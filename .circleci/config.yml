@@ -30,13 +30,6 @@ jobs:
       - run:
           name: Swap to target branch and integrate
           command: ./play --manuscript .circleci/manuscript.yml --part integrate
-      - run:
-          name: Where am I
-          command: |
-            pwd
-            ls -a
-            git rev-parse --short HEAD
-
   deliver:
     # working_directory: /app
     docker:
