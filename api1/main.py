@@ -54,7 +54,6 @@ def lambda_handler(event, context):
     else:
         return {
             'statusCode': 200,
-            'body': json.dumps("ASD")
+            'body': json.dumps(arr_labels_insert)
         }
 
-lambda_handler(None,None)

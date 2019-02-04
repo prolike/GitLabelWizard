@@ -1,18 +1,31 @@
 # label_handler.py
 # Author : Ansty93 - Ansty93@gmail.com
 import json
-#from botocore.vendored import requests
-import requests
+import os
+from botocore.vendored import requests
 
-# Label handler - deletes and inserts labels for a GitHub repository
+api_url = "https://api.github.com"
+token = os.environ["BASIC_TOKEN_ANSTY93"]
+token2 = os.environ["BASIC_TOKEN_PROLIKE"]
 
-def label_remove(api_url,repo_owner,repo_name,label,token):
+
+def insert_all_labels(repo_owner,repo_name,arr_label):
+    for label in arr_label:
+        label = format_insterting_labels(label)
+        label_insert(repo_owner,repo_name,label)
+
+def remove_all_labels(repo_owner,repo_name,arr_label):
+    for label in arr_label:
+        label = format_deletion_labels(label)
+        label_remove(repo_owner,repo_name,label)
+
+def label_remove(repo_owner,repo_name,label):
     url = api_url+"/repos/"+repo_owner+"/"+repo_name+"/labels/"+label
     headers = {'Authorization':'Basic '+token}
     r = requests.delete(url,headers=headers)
     return r
 
-def label_insert(api_url,repo_owner,repo_name,label,token):
+def label_insert(repo_owner,repo_name,label):
     url = api_url+"/repos/"+repo_owner+"/"+repo_name+"/labels"
     #print(url)
     #label = {"name":"pythonboy3222asd222222","color":"ffffff","description":"Its a test"}
@@ -22,3 +35,12 @@ def label_insert(api_url,repo_owner,repo_name,label,token):
     return r
 
 
+# Replaces space with '%20' to make it URL friendly 
+def format_deletion_labels(label):
+     formatted_label = label.replace(" ","%20")
+     return formatted_label
+
+# Replaces space with '%20' to make it URL friendly 
+def format_insterting_labels(label):
+     label["color"] = label["color"].replace("#","")
+     return label
