@@ -78,7 +78,7 @@ jobs:
 
 workflows:
   version: 2
-  timereg_phlow:
+  gitlabelwizard:
     jobs:
       - integrate:
           filters:
