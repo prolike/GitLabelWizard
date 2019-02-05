@@ -34,20 +34,14 @@ jobs:
       - run: npm install --prefix ./functions/
       - save_cache:
           paths:
-            - node_modules
+            - ./functions/node_modules
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
       - run:
           name: Install Firebase Tools
-          command: sudo npm install --prefix=./firebase-deploy firebase-tools
-      - run:
-          name: Where am I
-          command: |
-            pwd
-            ls -a
-            git rev-parse --short node_modules HEAD
+          command: sudo npm install firebase-tools
       - run:
           name: deploy firebase
-          command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+          command: sudo firebase deploy --token=$FIREBASE_TOKEN
   deliver:
     docker:
       - image: circleci/node:8.10
