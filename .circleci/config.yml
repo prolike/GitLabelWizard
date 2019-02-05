@@ -41,13 +41,15 @@ jobs:
           command: npm install --prefix=./firebase-deploy firebase-tools
       - run:
           name: Firebase test
-          command: echo "Firebase test"
+          command: echo "TODO LATER"
+      - run:
+          name: deploy firebase
+          command: firebase deploy --token "$FIREBASE_TOKEN"
   deliver:
     docker:
       - image: circleci/node:7.10
     steps:
       - checkout
-
       - run:
           name: Intro
           command: ./play --manuscript .circleci/manuscript.yml --part gitintro
