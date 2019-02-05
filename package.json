@@ -1,5 +1,5 @@
 {
-  "name": "tenak-reference-guide",
+  "name": "gitlabelwizard",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prolike/tenak-reference-guide.git"
+    "url": "git+https://github.com/prolike/gitlabelwizard.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/prolike/tenak-reference-guide/issues"
+    "url": "https://github.com/prolike/gitlabelwizard/issues"
   },
-  "homepage": "https://github.com/prolike/tenak-reference-guide#readme",
+  "homepage": "https://github.com/prolike/gitlabelwizard#readme",
   "dependencies": {}
 }
