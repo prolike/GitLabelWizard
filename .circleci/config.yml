@@ -1,10 +1,9 @@
-version: 2
+version: 2.1
 jobs:
 
   integrate:
-    working_directory: /app
     docker:
-      - image: node:10
+      - image: circleci/node:7.10
     steps:
       - checkout
       - run:
@@ -20,37 +19,33 @@ jobs:
           command: ./play --manuscript .circleci/manuscript.yml --part integrate
 
   build:
-    working_directory: /app
     docker:
-      - image: node:10
+      - image: circleci/node:7.10
     steps:
       - checkout
-
       - run:
           name: Swap to target branch and integrate
           command: ./play --manuscript .circleci/manuscript.yml --part integrate
-
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "./functions/package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
       - run: npm install
-
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      # run tests!
-      - run: npm test
-
+          key: v1-dependencies-{{ checksum "./functions/package.json" }}
+      - run:
+          name: Install Firebase Tools
+          command: npm install --prefix=./firebase-deploy firebase-tools
+      - run:
+          name: Firebase test
+          command: echo "Firebase test"
   deliver:
-    working_directory: /app
     docker:
-      - image: node:10
+      - image: circleci/node:7.10
     steps:
       - checkout
 
@@ -65,16 +60,15 @@ jobs:
           command: ./play --manuscript .circleci/manuscript.yml --part deliver
 
   dev_test:
-    working_directory: /app
     docker:
-      - image: node:10
+      - image: circleci/node:7.10
     steps:
       - checkout
 
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "./functions/package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
@@ -83,7 +77,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "./functions/package.json" }}
 
       # run tests!
       - run: npm test
