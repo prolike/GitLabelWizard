@@ -44,7 +44,7 @@ jobs:
           command: echo "TODO LATER"
       - run:
           name: deploy firebase
-          command: firebase deploy --token="$FIREBASE_TOKEN"
+          command: sudo firebase deploy --token="$FIREBASE_TOKEN"
   deliver:
     docker:
       - image: circleci/node:7.10
