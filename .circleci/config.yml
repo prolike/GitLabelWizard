@@ -44,7 +44,7 @@ jobs:
           command: |
             pwd
             ls -a
-            git rev-parse --short HEAD"
+            git rev-parse --short HEAD
       - run:
           name: deploy firebase
           command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
