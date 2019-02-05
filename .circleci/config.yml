@@ -1,6 +1,5 @@
-version: 2.1
+version: 2
 jobs:
-
   integrate:
     docker:
       - image: circleci/node:7.10
