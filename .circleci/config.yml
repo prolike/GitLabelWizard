@@ -2,7 +2,7 @@ version: 2
 jobs:
   integrate:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.10
     steps:
       - checkout
       - run:
@@ -19,7 +19,7 @@ jobs:
 
   build:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.10
     steps:
       - checkout
       - run:
@@ -40,14 +40,14 @@ jobs:
           name: Install Firebase Tools
           command: sudo npm install --prefix=./firebase-deploy firebase-tools
       - run:
-          name: Firebase test
+          name: Install elint
           command: echo "TODO LATER"
       - run:
           name: deploy firebase
           command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
   deliver:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.10
     steps:
       - checkout
       - run:
@@ -62,7 +62,7 @@ jobs:
 
   dev_test:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.10
     steps:
       - checkout
 
