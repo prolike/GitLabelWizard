@@ -38,10 +38,10 @@ jobs:
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
       - run:
           name: Install Firebase Tools
-          command: sudo npm install firebase-tools
+          command: sudo npm install --prefix=./firebase-deploy firebase-tools
       - run:
           name: deploy firebase
-          command: sudo firebase deploy --token=$FIREBASE_TOKEN
+          command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
   deliver:
     docker:
       - image: circleci/node:8.10
