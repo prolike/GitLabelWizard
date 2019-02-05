@@ -9,5 +9,5 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 
 
 exports.helloWorld2 = functions.https.onRequest((request, response) => {
- response.send("Hello from Firebase!#2");
+ response.send("TESADAD from Firebase!#2");
 });
