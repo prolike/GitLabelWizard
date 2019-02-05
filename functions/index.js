@@ -8,6 +8,10 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 });
 
 
-exports.savage = functions.https.onRequest((request, response) => {
+exports.helloWorld2 = functions.https.onRequest((request, response) => {
+ response.send("TESADAD from Firebase!#2");
+});
+
+exports.helloWorld3 = functions.https.onRequest((request, response) => {
  response.send("TESADAD from Firebase!#2");
 });
