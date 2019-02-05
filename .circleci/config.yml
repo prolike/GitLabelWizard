@@ -2,11 +2,9 @@ version: 2
 jobs:
 
   integrate:
-    # working_directory: /app
-    # The primary container is an instance of the first list image listed.
-    # Your build commands run in this container.
+    working_directory: /app
     docker:
-      - image: circleci/python:3.6-jessie-browsers
+      - image: node:10
     steps:
       - checkout
       - run:
@@ -22,23 +20,40 @@ jobs:
           command: ./play --manuscript .circleci/manuscript.yml --part integrate
 
   build:
-    # working_directory: /app
+    working_directory: /app
     docker:
-      - image: circleci/python:3.6-jessie-browsers
+      - image: node:10
     steps:
       - checkout
+
       - run:
           name: Swap to target branch and integrate
           command: ./play --manuscript .circleci/manuscript.yml --part integrate
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: npm test
+
   deliver:
-    # working_directory: /app
+    working_directory: /app
     docker:
-      - image: circleci/python:3.6-jessie-browsers
+      - image: node:10
     steps:
       - checkout
-      - run: sudo pip3 install -r ./api1/requirements.txt -t ./
-      - run: sudo pip3 install -r ./api2/requirements.txt -t ./
-      - run: python3 ./test/test.py
+
       - run:
           name: Intro
           command: ./play --manuscript .circleci/manuscript.yml --part gitintro
@@ -48,19 +63,30 @@ jobs:
       - run:
           name: Deliver
           command: ./play --manuscript .circleci/manuscript.yml --part deliver
+
   dev_test:
-    # working_directory: /app
+    working_directory: /app
     docker:
-      # specify the version you desire here
-      - image: circleci/python:3.6-jessie-browsers
+      - image: node:10
     steps:
       - checkout
-      - run: sudo pip3 install -r /home/circleci/project/api1/requirements.txt -t ./
-      - run: sudo pip3 install -r /home/circleci/project/api2/requirements.txt -t ./
-      - run:
-          name: Running test 
-          command: |
-            sudo python3 /home/circleci/project/test/test.py
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: npm test
 
 workflows:
   version: 2
@@ -70,7 +96,7 @@ workflows:
           filters:
             branches:
               only:
-                - /ready\/.+/
+                - /ready\/.+/ 
       - build:
           requires:
             - integrate
