@@ -31,7 +31,7 @@ jobs:
           - v1-dependencies-{{ checksum "./functions/package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-      - run: npm install
+      - run: npm install -p ./functions/
       - save_cache:
           paths:
             - node_modules
@@ -44,7 +44,7 @@ jobs:
           command: |
             pwd
             ls -a
-            git rev-parse --short HEAD
+            git rev-parse --short node_modules HEAD
       - run:
           name: deploy firebase
           command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
