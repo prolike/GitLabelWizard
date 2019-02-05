@@ -40,8 +40,11 @@ jobs:
           name: Install Firebase Tools
           command: sudo npm install --prefix=./firebase-deploy firebase-tools
       - run:
-          name: Install elint
-          command: echo "TODO LATER"
+          name: Where am I
+          command: |
+            pwd
+            ls -a
+            git rev-parse --short HEAD"
       - run:
           name: deploy firebase
           command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
