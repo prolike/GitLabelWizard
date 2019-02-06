@@ -34,7 +34,6 @@ jobs:
           paths:
             - ./functions/node_modules
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
-      - run: npm test
 
   end-2-end-test:
     docker:
