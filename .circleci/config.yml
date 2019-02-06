@@ -89,7 +89,8 @@ jobs:
           command: sudo npm install --prefix=./firebase-deploy firebase-tools
       - run:
           name: deploy firebase
-          command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN - tagret stageenvironment or prod environment
+          command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+
 workflows:
   version: 2
   gitlabelwizard:
