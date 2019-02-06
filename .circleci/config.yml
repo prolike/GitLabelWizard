@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  
+
   integrate:
     docker:
       - image: circleci/node:8.10
@@ -57,6 +57,9 @@ jobs:
       - run:
           name: Install Firebase Tools
           command: sudo npm install --prefix=./firebase-deploy firebase-tools
+      - run:
+          name: Install Firebase Functions
+          command: sudo npm install --prefix=./firebase-functions firebase-functions@latest
   stage:
     docker:
       - image: circleci/node:8.10
