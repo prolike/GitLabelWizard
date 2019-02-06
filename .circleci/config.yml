@@ -49,6 +49,9 @@ jobs:
           paths:
             - ./functions/node_modules
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
+      - run: npm install --prefix ./functions/ --save-dev firebase-functions-test
+      - run: npm install --prefix ./functions/ --save-dev mocha
+      - run: npm test --prefix ./functions/
 
   end-2-end-test:
     docker:
