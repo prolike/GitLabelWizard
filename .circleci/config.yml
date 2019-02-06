@@ -49,6 +49,9 @@ jobs:
           paths:
             - ./functions/node_modules
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
+      - run: npm install --prefix ./functions/ --save-dev firebase-functions-test
+      - run: npm install --prefix ./functions/ --save-dev mocha
+      - run: npm test --prefix ./functions/
 
   end-2-end-test:
     docker:
@@ -71,7 +74,7 @@ jobs:
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
       - run:
           name: Install Firebase Tools
-          command: sudo npm install --prefix=./firebase-deploy firebase-tools
+          command: sudo npm install --prefix=./firebase firebase-tools
       - run:
           name: Install Firebase Functions
           command: sudo npm install --prefix=./firebase-functions firebase-functions@latest
@@ -95,7 +98,7 @@ jobs:
           command: sudo npm install --prefix=./firebase-deploy firebase-tools
       - run:
           name: deploy firebase
-          command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+          command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --only functions:deploy --token=$FIREBASE_TOKEN
 
 workflows:
   version: 2
