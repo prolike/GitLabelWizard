@@ -4,7 +4,7 @@ const functions = require('firebase-functions');
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 exports.deploy = {
-	helloWorld: functions.https.onRequest((request, response) => {response.send("Hello from Firebase!");});
-	hejVerden: functions.https.onRequest((request, response) => {response.send("Hello from Firebase!");});
-	hejVerden2: functions.https.onRequest((request, response) => {response.send("Hello from Firebase!");});
+	helloWorld: functions.https.onRequest((request, response) => {response.send("Hello from Firebase!");}),
+	hejVerden: functions.https.onRequest((request, response) => {response.send("Hello from Firebase!");}),
+	hejVerden2: functions.https.onRequest((request, response) => {response.send("Hello from Firebase!");})	
 }
