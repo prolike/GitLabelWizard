@@ -65,15 +65,6 @@ jobs:
       - image: circleci/node:8.10
     steps:
       - checkout
-      - run:
-          name: Intro
-          command: ./play --manuscript .circleci/manuscript.yml --part gitintro
-      - run:
-          name: integrate
-          command: ./play --manuscript .circleci/manuscript.yml --part integrate
-      - run:
-          name: Deliver
-          command: ./play --manuscript .circleci/manuscript.yml --part deliver
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "./functions/package.json" }}
