@@ -7,7 +7,6 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
  response.send("Hello from Firebase!");
 });
 
-
 exports.helloWorld2 = functions.https.onRequest((request, response) => {
  response.send("TESADAD from Firebase!#2");
 });
