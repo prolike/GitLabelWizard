@@ -97,7 +97,7 @@ workflows:
             branches:
               only:
                 - /ready\/.+/ 
-      - unittest: 
+      - unittest
       - end-2-end-test: #deploy to local docker (PLE) and run tests - massage your API :-)
           # Run your testes (end-to-end tests? Split them up?)
           requires:
