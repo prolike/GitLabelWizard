@@ -34,7 +34,8 @@ jobs:
           paths:
             - ./functions/node_modules
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
-      - run: sudo npm run serve --prefix ./functions/ --token=$FIREBASE_TOKEN
+      - run: sudo npm config set functions:firebase $FIREBASE_TOKEN -prefix ./functions
+      - run: sudo npm run serve --prefix ./functions/
       - run: npm test --prefix ./functions/index-test.js
 
   end-2-end-test:
