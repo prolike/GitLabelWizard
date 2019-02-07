@@ -57,8 +57,7 @@ jobs:
           paths:
             - ./functions/node_modules
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
-      - run: sudo firebase serve
-      - run: npm test --prefix ./functions/e2e-test.js
+      - run: npm test --prefix ./functions/
   deliver:
     docker:
       - image: circleci/node:8.10
