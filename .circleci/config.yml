@@ -18,21 +18,6 @@ jobs:
           name: Swap to target branch and test integration
           command: ./play --manuscript .circleci/manuscript.yml --part integrate
 
-  deliver:
-    docker:
-      - image: circleci/node:8.10
-    steps:
-      - checkout
-      - run:
-          name: Intro
-          command: ./play --manuscript .circleci/manuscript.yml --part gitintro
-      - run:
-          name: integrate
-          command: ./play --manuscript .circleci/manuscript.yml --part integrate
-      - run:
-          name: Deliver
-          command: ./play --manuscript .circleci/manuscript.yml --part deliver
-
   unittest:
     docker:
       - image: circleci/node:8.10
@@ -49,9 +34,8 @@ jobs:
           paths:
             - ./functions/node_modules
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
-      - run: npm install --prefix ./functions/ --save-dev firebase-functions-test
-      - run: npm install --prefix ./functions/ --save-dev mocha
-      - run: npm test --prefix ./functions/
+      - run: sudo firebase serve
+      - run: npm test --prefix ./functions/index-test.js
 
   end-2-end-test:
     docker:
@@ -72,12 +56,22 @@ jobs:
           paths:
             - ./functions/node_modules
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
+      - run: sudo firebase serve
+      - run: npm test --prefix ./functions/e2e-test.js
+  deliver:
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - checkout
       - run:
-          name: Install Firebase Tools
-          command: sudo npm install --prefix=./firebase firebase-tools
+          name: Intro
+          command: ./play --manuscript .circleci/manuscript.yml --part gitintro
       - run:
-          name: Install Firebase Functions
-          command: sudo npm install --prefix=./firebase-functions firebase-functions@latest
+          name: integrate
+          command: ./play --manuscript .circleci/manuscript.yml --part integrate
+      - run:
+          name: Deliver
+          command: ./play --manuscript .circleci/manuscript.yml --part deliver
   stage:
     docker:
       - image: circleci/node:8.10
