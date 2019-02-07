@@ -5,11 +5,11 @@ const functions = require('firebase-functions');
 //
 exports.callMe = functions.https.onRequest((request, response) => {
 	console.log(request)
-		if (request.method != 'POST'){
-			return response.status(403).send('Forbidden!');
-		}
+	console.log(response)
+		
 		var body_json = getInfo(request.body)
-		return response.status(200).send('test');
+		response.status(200)
+		return response.send('test'); //det vi skal ha løst er at finde ud af hvordan vi kan få de ttil at fungere
 	});
 
 

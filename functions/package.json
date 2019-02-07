@@ -1,7 +1,7 @@
 {
   "name": "functions",
   "description": "Cloud Functions for Firebase",
-  "config":{
+  "config": {
     "firebase": "asd"
   },
   "scripts": {
@@ -24,7 +24,8 @@
     "eslint-plugin-promise": "^4.0.1",
     "firebase-functions-test": "^0.1.6",
     "mocha": "^5.2.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "sinon": "^7.2.3"
   },
   "private": true
 }
