@@ -7,7 +7,7 @@ exports.callMe = functions.https.onRequest((request, response) => {
 		//console.log(request)
 		//console.log(response)
 
-		if (request.method != 'POST'){
+		if (request.method !== 'POST'){
 			 response.status(403);
 			 return response.send('Forbidden!');
 		}
