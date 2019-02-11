@@ -83,37 +83,43 @@ it('Invalid request(GET) - Valid ApiKey - it should return 403 - Forbidden! Inva
 
 describe('Github Label HTTP operations test - Mock server (Nock)', function(done) {
 it('labelAdd', function (done) {
+  
+    var repoOwner = "prolike"
+    var repoName = "gitlabelwizard"
+    var token = "tokenasdasdasd"
+    var labelObject = "{'name': 'test label', 'color': 'ffffff'}"
 
-     const scope = nock('https://api.github.com') //Api url
-    .post('/repos/prolike/gitlabelwizard/labels') //The url-oath we going to recieve HTTP request
+    //Mock server 
+    const scope = nock('https://api.github.com') //Api url
+    .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on
     .reply(function(uri, requestBody) { // The reply function
      // console.log('path:', this.req)
      // console.log('headers:', requestBody)
       expect(requestBody).to.equal(labelObject)
     }) 
     .log(console.log)
-    var repoOwner = "prolike"
-    var repoName = "gitlabelwizard"
-    var token = "tokenasdasdasd"
-    var labelObject = "{'name': 'test label', 'color': 'ffffff'}"
     myFunctions.labelAdd(repoOwner,repoName,labelObject,token);
     done();
   });
 
 it('labelRemove', function (done) {
-     const scope = nock('https://api.github.com')
-    .post('/repos/prolike/gitlabelwizard/labels')
-    .reply(function(uri, requestBody) {
-      //console.log('path:', this.req.path)
-     // console.log('headers:', this.req.headers)
-      //console.log('headers:', requestBody)
-      expect(requestBody).to.equal("{'Test':'asd'}")
-    })
-    .log(console.log)
+
     var repoOwner = "prolike"
     var repoName = "gitlabelwizard"
     var token = "tokenasdasdasd"
-    var labelName = "Action - awaiting feedback"
+    var labelName = "Action%20-%20awaiting%20feed-back"
+    //var labelName2 = "Action - awaiting feed-back"
+
+    //Mock server
+    const scope = nock('https://api.github.com')
+    .delete('/repos/prolike/gitlabelwizard/labels/'+labelName)
+    .reply(204, function(uri, requestBody) {
+      console.log('path:', this.req.path)
+      console.log('headers:', this.req.headers)
+      //console.log('headers:', )
+      expect(requestBody).to.equal("")
+    })
+    .log(console.log);
     myFunctions.labelRemove(repoOwner,repoName,labelName,token);
     done();
   });
