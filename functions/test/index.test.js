@@ -198,7 +198,7 @@ describe('Github api HTTP operations test using Mock server (Nock)', function(do
     done();
   });
 
-  it('should delete all labels', function (done) {
+  it('should delete all labels from a array', function (done) {
 
     //Test arguments
     var repoOwner = "prolike"
@@ -217,6 +217,8 @@ describe('Github api HTTP operations test using Mock server (Nock)', function(do
     myFunctions.labelsRemoveAll(repoOwner,repoName,labelParsed,token); //Calling the labelsRemoveAll() method with the test arguments
     done();
   });
+
+
 
 });
 
@@ -245,6 +247,13 @@ describe('Unit testing functions', function(done) {
       expect(expectedOutput).to.equal(result);
       done();
     });
+  it('should parse the adding labelColor - Parsing # with a empty space', function (done) {
+      var labelObject = {"name": "test label", "color": "#ffffff"}
+      var expectedOutput = {"name": "test label", "color": "ffffff"}
+      var result = myFunctions.labelParseAdd(labelObject.color);
+      expect(expectedOutput.color).to.equal(result);
+      done();
+    });
 
   it('should loads token from environment variable', function (done) {
       var token = "xxx123" 
@@ -265,13 +274,28 @@ describe('Unit testing functions', function(done) {
 //     done();
 //   });
 
-  it('should parse the adding labelColor - Parsing # with a empty space', function (done) {
-      var labelObject = {"name": "test label", "color": "#ffffff"}
-      var expectedOutput = {"name": "test label", "color": "ffffff"}
-      var result = myFunctions.labelParseAdd(labelObject);
-      expect(expectedOutput.color).to.equal(result.color);
+
+
+  it('should parse the array of adding labelColor - Parsing # with a empty space', function (done) {
+      var labelArr = [{"name": "test label", "color": "#f"},{"name": "test label", "color": "#xxxx"},{"name": "test label", "color": "#asdasd"}]
+      var expectedOutputArr= [{"name": "test label", "color": "f"},{"name": "test label", "color": "xxxx"},{"name": "test label", "color": "asdasd"}]
+      var result = myFunctions.labelAddFormatter(labelArr);
+      expect(result[0].color).to.equal(expectedOutputArr[0].color);
+      expect(result[1].color).to.equal(expectedOutputArr[1].color);
+      expect(result[2].color).to.equal(expectedOutputArr[2].color);
       done();
     });
+
+    it('should parse the array of removing labelColor - Parsing empty spaces with %20', function (done) {
+      var labelArr = [{"name":" bu g"},{"name":"asd bug"},{"name":"b - asd -asdug"}]
+      var expectedOutputArr= [{"name":"%20bu%20g"},{"name":"asd%20bug"},{"name":"b%20-%20asd%20-asdug"}]
+      var result = myFunctions.labelRemoveFormatter(labelArr);
+      expect(result[0].name).to.equal(expectedOutputArr[0].name);
+      expect(result[1].name).to.equal(expectedOutputArr[1].name);
+      expect(result[2].name).to.equal(expectedOutputArr[2].name);
+      done();
+    });
+
 
   it('should return a hardcoded labels for addition', function (done) {
       var expectedOutput1 = {"name":"Action - awaiting feed-back","color": "6EB82C","description":""}
@@ -292,9 +316,6 @@ describe('Unit testing functions', function(done) {
 
 
 });
-
-
-
 
 
 

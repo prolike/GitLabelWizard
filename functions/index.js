@@ -38,13 +38,25 @@ exports.callMe = functions.https.onRequest((request, response) => {
 			var body = request.body
 			var repoOwner = body.repository.owner.login
 			var repoName = body.repository.name
-			console.log(repoOwner)
-			console.log(repoName)
+			var token = "tokenasd"
+			//main(repoOwner,repoName,token)
 			response.status(202)
 			return response.send('OK'); 
 		}
 		}
 });
+
+// Main
+exports.main = function(repoOwner, repoName,token) {
+	var arrLabelsAdd = getLabelsRemoveHardcoded()
+	var arrLabelsRemove = getLabelsAddHardcoded()
+	for(labelObject in arrLabelsRemove){
+		labelRemove(repoOwner,repoName,labelObject.name,token)
+	}
+	for(labelObject in arrLabelsAdd){
+		labelAdd(repoOwner,repoName,labelObject,token)
+	}
+}
 
 // Github HTTP label handler
 exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
@@ -122,15 +134,30 @@ exports.labelsRemoveAll = function(repoOwner,repoName, labelArray, token) {
 	}
 } 
 
-exports.labelParseRemove = function(labelName) {
-    return labelName.replace(/ /g, "%20");
 
+
+exports.labelAddFormatter = function(arrLabels) {
+    for(var label of arrLabels){
+    	label.color = exports.labelParseAdd(label.color)
+    }
+    return arrLabels
+} 
+
+exports.labelRemoveFormatter = function(arrLabels) {
+    for(var label of arrLabels){
+    	label.name = exports.labelParseRemove(label.name)
+    }
+    return arrLabels
 } 
 
 
-exports.labelParseAdd = function(jsonObject) {
-	jsonObject.color = jsonObject.color.replace("#", "");
-    return jsonObject
+exports.labelParseRemove = function(labelName) {
+    return labelName.replace(/ /g, "%20");
+} 
+
+
+exports.labelParseAdd = function(labelColor) {
+    return labelColor.replace("#", "");
 } 
 
 
