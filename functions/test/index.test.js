@@ -37,8 +37,13 @@ describe('Test', function(done) {
 
 describe('Label HTTP operations test - Mock server (Nock)', function(done) {
 it('labelAdd', function (done) {
+    var repoOwner = "prolike"
+    var repoName = "gitlabelwizard"
+    var token = "tokenasdasdasd"
+    var labelObject = "{'name': 'test label', 'color': 'ffffff'}"
 
-     const scope = nock('https://api.github.com') //Api url
+    //Mock server 
+    const scope = nock('https://api.github.com') //Api url
     .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on
     .reply(function(uri, requestBody) { // The reply function
       console.log('path:', this.req)
@@ -46,10 +51,6 @@ it('labelAdd', function (done) {
       expect(requestBody).to.equal(labelObject)
     })
     .log(console.log)
-    var repoOwner = "prolike"
-    var repoName = "gitlabelwizard"
-    var token = "tokenasdasdasd"
-    var labelObject = "{'name': 'test label', 'color': 'ffffff'}"
     myFunctions.labelAdd(repoOwner,repoName,labelObject,token);
     done();
   });
@@ -59,7 +60,9 @@ it('labelRemove', function (done) {
     var repoName = "gitlabelwizard"
     var token = "tokenasdasdasd"
     var labelName = "Action%20-%20awaiting%20feed-back"
+    //var labelName2 = "Action - awaiting feed-back"
 
+    //Mock server
     const scope = nock('https://api.github.com')
     .delete('/repos/prolike/gitlabelwizard/labels/'+labelName)
     .reply(204, function(uri, requestBody) {
@@ -67,7 +70,6 @@ it('labelRemove', function (done) {
       console.log('headers:', this.req.headers)
       //console.log('headers:', )
       expect(requestBody).to.equal("")
-      //expect(statusCode).to.equal(204)
     })
     .log(console.log);
     myFunctions.labelRemove(repoOwner,repoName,labelName,token);
