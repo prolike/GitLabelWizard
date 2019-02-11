@@ -36,12 +36,12 @@ describe('Test', function(done) {
 });
 
 describe('Label HTTP operations test - Mock server (Nock)', function(done) {
-it('labelAdd - It Should return 200', function (done) {
-     const scope = nock('https://api.github.com')
-    .post('/repos/prolike/gitlabelwizard/labels')
-    .reply(function(uri, requestBody) {
-      console.log('path:', this.req.path)
-      console.log('headers:', this.req.headers)
+it('labelAdd', function (done) {
+
+     const scope = nock('https://api.github.com') //Api url
+    .post('/repos/prolike/gitlabelwizard/labels') //The url-oath we going to recieve HTTP request
+    .reply(function(uri, requestBody) { // The reply function
+      console.log('path:', this.req)
       console.log('headers:', requestBody)
       expect(requestBody).to.equal(labelObject)
     })
@@ -54,7 +54,7 @@ it('labelAdd - It Should return 200', function (done) {
     done();
   });
 
-it('labelRemove - It Should return 200', function (done) {
+it('labelRemove', function (done) {
      const scope = nock('https://api.github.com')
     .post('/repos/prolike/gitlabelwizard/labels')
     .reply(function(uri, requestBody) {
