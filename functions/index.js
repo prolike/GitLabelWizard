@@ -14,11 +14,10 @@ exports.callMe = functions.https.onRequest((request, response) => {
 		}
 		response.status(200)
 		return response.send('OK'); 
-	});
+});
 
 exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels";
-
 	const options = {
 	  method: 'POST',
 	  url: urlLabel,
@@ -33,8 +32,7 @@ exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 } 
 
 exports.labelRemove = function(repoOwner,repoName, labelName, token) {
-	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/label/"+labelName;
-
+	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelName;
 	const options = {
 	  method: 'DELETE',
 	  url: urlLabel
