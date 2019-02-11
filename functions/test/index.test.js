@@ -83,6 +83,7 @@ it('Invalid request(GET) - Valid ApiKey - it should return 403 - Forbidden! Inva
 
 describe('Github Label HTTP operations test - Mock server (Nock)', function(done) {
 it('labelAdd', function (done) {
+  
     var repoOwner = "prolike"
     var repoName = "gitlabelwizard"
     var token = "tokenasdasdasd"
@@ -103,16 +104,6 @@ it('labelAdd', function (done) {
 
 it('labelRemove', function (done) {
 
-     const scope = nock('https://api.github.com')
-    .post('/repos/prolike/gitlabelwizard/labels')
-    .reply(function(uri, requestBody) {
-      //console.log('path:', this.req.path)
-     // console.log('headers:', this.req.headers)
-      //console.log('headers:', requestBody)
-      expect(requestBody).to.equal("{'Test':'asd'}")
-    })
-    .log(console.log)
-    
     var repoOwner = "prolike"
     var repoName = "gitlabelwizard"
     var token = "tokenasdasdasd"
