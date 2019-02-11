@@ -35,11 +35,26 @@ describe('Test', function(done) {
  
 });
 
-describe('labels test', function(done) {
-  
+describe('Label HTTP operations test - Mock server (Nock)', function(done) {
+it('labelAdd - It Should return 200', function (done) {
+     const scope = nock('https://api.github.com')
+    .post('/repos/prolike/gitlabelwizard/labels')
+    .reply(function(uri, requestBody) {
+      console.log('path:', this.req.path)
+      console.log('headers:', this.req.headers)
+      console.log('headers:', requestBody)
+      expect(requestBody).to.equal(labelObject)
+    })
+    .log(console.log)
+    var repoOwner = "prolike"
+    var repoName = "gitlabelwizard"
+    var token = "tokenasdasdasd"
+    var labelObject = "{'name': 'test label', 'color': 'ffffff'}"
+    myFunctions.labelAdd(repoOwner,repoName,labelObject,token);
+    done();
+  });
 
-
-it('Method = POST, Mock server', function (done) {
+it('labelRemove - It Should return 200', function (done) {
      const scope = nock('https://api.github.com')
     .post('/repos/prolike/gitlabelwizard/labels')
     .reply(function(uri, requestBody) {
@@ -47,18 +62,13 @@ it('Method = POST, Mock server', function (done) {
       console.log('headers:', this.req.headers)
       console.log('headers:', requestBody)
       expect(requestBody).to.equal("{'Test':'asd'}")
-
-     // ...
     })
     .log(console.log)
-
     var repoOwner = "prolike"
     var repoName = "gitlabelwizard"
-    var apiUrl = 'https://api.github.com/repos/prolike/gitlabelwizard/labels'
     var token = "tokenasdasdasd"
-    var labelObject = "{'name': 'test label', 'color': 'ffffff'}"
-    myFunctions.addLabel(apiUrl,repoOwner,repoName,labelObject,token);
-   
+    var labelName = "Action - awaiting feedback"
+    myFunctions.labelRemove(repoOwner,repoName,labelName,token);
     done();
   });
 });
