@@ -102,21 +102,18 @@ it('labelAdd', function (done) {
   });
 
 it('labelRemove', function (done) {
-
     var repoOwner = "prolike"
     var repoName = "gitlabelwizard"
     var token = "token"
-    var labelName = "Action%20-%20awaiting%20feed-back"
-    //var labelName2 = "Action - awaiting feed-back"
+    var labelNameParsed = "Action%20-%20awaiting%20feed-back"
+    var labelName = "Action - awaiting feed-back"
 
     //Mock server
     const scope = nock('https://api.github.com')
-    .delete('/repos/prolike/gitlabelwizard/labels/'+labelName)
+    .delete('/repos/prolike/gitlabelwizard/labels/'+labelNameParsed)
     .reply(204, function(uri, requestBody) {
       console.log('path:', this.req.path)
       console.log('headers:', this.req.headers)
-//      console.log('status:', )
-      expect(requestBody).to.equal("")
     })
     .log(console.log);
     myFunctions.labelRemove(repoOwner,repoName,labelName,token);

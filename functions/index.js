@@ -48,12 +48,12 @@ exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 } 
 
 exports.labelRemove = function(repoOwner,repoName, labelName, token) {
-	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelName;
-	const options = {
-	  method: 'DELETE',
-	  url: urlLabel
-	};
-
+    var labelNameParsed = this.labelParseRemove(labelName)
+    var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelNameParsed;
+    const options = {
+      method: 'DELETE',
+      url: urlLabel
+    };
 	request(options, function (error, response, body) {
 	  console.log('error:', error); // Print the error if one occurred
 	  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
@@ -75,4 +75,8 @@ exports.labelsAddAll = function(repoOwner,repoName, labelArray, token) {
 
 exports.labelsRemoveAll = function(repoOwner,repoName, labelArray, token) {
 	return null;
+} 
+
+exports.labelParseRemove = function(labelName) {
+    return labelName.replace(" ", "%20");
 } 
