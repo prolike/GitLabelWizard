@@ -92,37 +92,57 @@ it('labelAdd', function (done) {
     const scope = nock('https://api.github.com') //Api url
     .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on
     .reply(function(uri, requestBody) { // The reply function
-     // console.log('path:', this.req)
+      //console.log('path:', this.req)
      // console.log('headers:', requestBody)
       expect(requestBody).to.equal(labelObject)
     }) 
-    .log(console.log)
+    //.log(console.log)
     myFunctions.labelAdd(repoOwner,repoName,labelObject,token);
     done();
   });
 
 it('labelRemove', function (done) {
-
     var repoOwner = "prolike"
     var repoName = "gitlabelwizard"
     var token = "token"
-    var labelName = "Action%20-%20awaiting%20feed-back"
-    //var labelName2 = "Action - awaiting feed-back"
+    var labelNameParsed = "Action%20-%20awaiting%20feed-back"
+    var labelName = "Action - awaiting feed-back"
 
     //Mock server
     const scope = nock('https://api.github.com')
-    .delete('/repos/prolike/gitlabelwizard/labels/'+labelName)
+    .delete('/repos/prolike/gitlabelwizard/labels/'+labelNameParsed)
     .reply(204, function(uri, requestBody) {
-      console.log('path:', this.req.path)
-      console.log('headers:', this.req.headers)
-//      console.log('status:', )
-      expect(requestBody).to.equal("")
+      //console.log('path:', this.req)
     })
-    .log(console.log);
+    //.log(console.log);
     myFunctions.labelRemove(repoOwner,repoName,labelName,token);
+   
+
+
+    //console.log(scope.interceptors[0])
     done();
   });
 });
+
+
+describe('Unit test', function(done) {
+it('labelremove Parsing 1', function (done) {
+    var labelName = "Its a test" 
+    var expectedOutput = "Its%20a%20test"
+    var result = myFunctions.labelParseRemove(labelName);
+    expect(result).to.equal(expectedOutput);
+    done();
+  });
+
+it('labelremove Parsing 2', function (done) {
+    var labelName = " Its a  test with multiple spaces " 
+    var expectedOutput = "%20Its%20a%20%20test%20with%20multiple%20spaces%20"
+    var result = myFunctions.labelParseRemove(labelName);
+    expect(result).to.equal(expectedOutput);
+    done();
+  });
+});
+
 
 
 

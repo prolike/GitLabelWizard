@@ -8,7 +8,7 @@ apiUrl = "https://api.github.com";
 
 exports.callMe = functions.https.onRequest((request, response) => {
 		var apiKey_param = request.params['api_key']
-		console.log(apiKey_param)
+		//console.log(apiKey_param)
 		if(apiKey_param === "undefined"){
 			response.status(403);
 			response.statusMessage = "Missing APIKEY!!"
@@ -41,22 +41,22 @@ exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 	};
 
 	request(options, function (error, response, body) {
-	  console.log('error:', error); // Print the error if one occurred
-	  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+	  //console.log('error:', error); // Print the error if one occurred
+	  //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 	  //console.log('body:', body); // Print the HTML for the Google homepage.
 	});
 } 
 
 exports.labelRemove = function(repoOwner,repoName, labelName, token) {
-	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelName;
-	const options = {
-	  method: 'DELETE',
-	  url: urlLabel
-	};
-
+    var labelNameParsed = this.labelParseRemove(labelName);
+    var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels2/"+labelNameParsed;
+    const options = {
+      method: 'DELETE',
+      url: urlLabel
+    };
 	request(options, function (error, response, body) {
-	  console.log('error:', error); // Print the error if one occurred
-	  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+	  //console.log('error:', error); // Print the error if one occurred
+	 // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 	});
 } 
 
@@ -75,4 +75,8 @@ exports.labelsAddAll = function(repoOwner,repoName, labelArray, token) {
 
 exports.labelsRemoveAll = function(repoOwner,repoName, labelArray, token) {
 	return null;
+} 
+
+exports.labelParseRemove = function(labelName) {
+    return labelName.replace(/ /g, "%20");
 } 
