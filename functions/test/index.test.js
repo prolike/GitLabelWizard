@@ -125,6 +125,25 @@ it('labelRemove', function (done) {
   });
 });
 
+describe('Github Label HTTP operations test - Mock server (Nock)', function(done) {
+it('labelAdd', function (done) {
+  
+  var body = {action: 'created',
+              repository: {
+              id: 169716182,
+              name: 'ax',
+              owner: {
+              login: 'internshipprolike',
+                       }
+                     }
+                   }
+    myFunctions.parseBody(body);
+    done();
+  });
+
+
+});
+
 
 
 
