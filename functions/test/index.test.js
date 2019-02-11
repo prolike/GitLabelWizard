@@ -96,7 +96,7 @@ it('labelAdd', function (done) {
      // console.log('headers:', requestBody)
       expect(requestBody).to.equal(labelObject)
     }) 
-    .log(console.log)
+    //.log(console.log)
     myFunctions.labelAdd(repoOwner,repoName,labelObject,token);
     done();
   });
@@ -112,11 +112,13 @@ it('labelRemove', function (done) {
     const scope = nock('https://api.github.com')
     .delete('/repos/prolike/gitlabelwizard/labels/'+labelNameParsed)
     .reply(204, function(uri, requestBody) {
-      console.log('path:', this.req.path)
-      console.log('headers:', this.req.headers)
+      //console.log('path:', this.req.path)
+      //console.log('headers:', this.req.headers)
+      //expect()
     })
-    .log(console.log);
+    //.log(console.log);
     myFunctions.labelRemove(repoOwner,repoName,labelName,token);
+    //console.log(scope)
     done();
   });
 });
