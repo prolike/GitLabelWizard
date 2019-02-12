@@ -6,7 +6,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "serve": "firebase serve --token=$npm_package_config_firebase",
+    "serve": "firebase serve",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
