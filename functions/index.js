@@ -91,3 +91,9 @@ exports.labelsRemoveAll = function(repoOwner,repoName, labelArray, token) {
 exports.labelParseRemove = function(labelName) {
     return labelName.replace(/ /g, "%20");
 } 
+
+
+exports.labelParseAdd = function(jsonObject) {
+	jsonObject.color = jsonObject.color.replace("#", "");
+    return jsonObject
+} 
