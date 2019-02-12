@@ -109,6 +109,9 @@ jobs:
           name: Install Firebase Tools
           command: sudo npm install --prefix=./firebase-deploy firebase-tools
       - run:
+          name: Set github authentication token in firebase from circleci
+          command: sudo firebase functions:config:set github.authkey=$GITHUB_BASIC_AUTHENTICATION_TOKEN
+      - run:
           name: deploy firebase
           command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --only functions --token=$FIREBASE_TOKEN
 

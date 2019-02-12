@@ -77,6 +77,10 @@ exports.getTokenFromEnv = function() {
 	return token
 } 
 
+exports.getBasicAuthTokenFromEnv = function() {
+	var token = process.env.GITHUB_BASIC_AUTHENTICATION_TOKEN;
+	return token
+} 
 
 
 exports.getApiKeyFromEnv = function() {
