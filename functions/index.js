@@ -37,7 +37,8 @@ exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 	const options = {
 	  method: 'POST',
 	  url: urlLabel,
-	  body: labelObject
+	  body: labelObject,
+	  headers: {'Authorization':'Basic '+token}
 	};
 
 	request(options, function (error, response, body) {
@@ -48,6 +49,7 @@ exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 } 
 
 exports.labelRemove = function(repoOwner,repoName, labelName, token) {
+<<<<<<< HEAD
     var labelNameParsed = this.labelParseRemove(labelName)
     var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelNameParsed;
     const options = {
@@ -57,13 +59,34 @@ exports.labelRemove = function(repoOwner,repoName, labelName, token) {
 	request(options, function (error, response, body) {
 	  //console.log('error:', error); // Print the error if one occurred
 	 // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+=======
+    var labelNameParsed = this.labelParseRemove(labelName);
+    var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelNameParsed;
+    const options = {
+      method: 'DELETE',
+      url: urlLabel,
+      headers: {'Authorization':'Basic '+token}
+    };
+	request(options, function (error, response, body) {
+	  //console.log('error:', error); // Print the error if one occurred
+	  //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+	  //console.log('body:', body); // Print the HTML for the Google homepage.
+>>>>>>> 13f98459db3a933bc471586d3d1e86b48e0a06a2
 	});
 } 
 
 // Local functions
-exports.getTokenFromEnv = function() {
-	return null;
+exports.getTokenFromEnvDev = function() {
+	var token = process.env.TOKENDEV;
+	return token;
 } 
+
+exports.getTokenFromEnv = function() {
+	var token = process.env.TOKENPROLIKE;
+	return token
+} 
+
+
 
 exports.getApiKeyFromEnv = function() {
 	return null;
@@ -78,5 +101,9 @@ exports.labelsRemoveAll = function(repoOwner,repoName, labelArray, token) {
 } 
 
 exports.labelParseRemove = function(labelName) {
+<<<<<<< HEAD
     return labelName.replace(" ", "%20");
+=======
+    return labelName.replace(/ /g, "%20");
+>>>>>>> 13f98459db3a933bc471586d3d1e86b48e0a06a2
 } 
