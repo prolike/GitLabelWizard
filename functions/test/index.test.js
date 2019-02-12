@@ -205,6 +205,14 @@ it('getToken test', function (done) {
     done();
   });
 
+it('should parse color in a addlabel and remove #', function (done) {
+    var labelObject = {"name": "test label", "color": "#ffffff"}
+    var expectedOutput = {"name": "test label", "color": "ffffff"}
+    var result = myFunctions.labelParseAdd(labelObject);
+    expect(expectedOutput.color).to.equal(result.color);
+    done();
+  });
+
 
 });
 

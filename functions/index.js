@@ -107,3 +107,9 @@ exports.labelParseRemove = function(labelName) {
     return labelName.replace(/ /g, "%20");
 >>>>>>> 13f98459db3a933bc471586d3d1e86b48e0a06a2
 } 
+
+
+exports.labelParseAdd = function(jsonObject) {
+	jsonObject.color = jsonObject.color.replace("#", "");
+    return jsonObject
+} 
