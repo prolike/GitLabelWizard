@@ -143,7 +143,7 @@ describe('Github api HTTP operations test using Mock server (Nock)', function(do
       done();
     });
     
-it('should remove a single label with token authentication in request header', function (done) {
+  it('should remove a single label with token authentication in request header', function (done) {
 
     var labelNameParsed = "Action%20-%20awaiting%20feed-back"
     var labelName = "Action - awaiting feed-back"
@@ -165,7 +165,6 @@ it('should remove a single label with token authentication in request header', f
     done();
   });
 
-  
     //Testing labelAddAll() method with mocked server
   it('should add all labels from a array', function (done) {
 
@@ -175,8 +174,7 @@ it('should remove a single label with token authentication in request header', f
     var token = "tokenasdasdasd"
     var labelArray = [ {'name': 'test label', 'color': 'ffffff'}, {'name': 'test label2', 'color': 'ffffff'}, {'name': 'test label3', 'color': 'ffffff'} ]
 
-
-    //console.log(scope.interceptors[0])
+    //Mock server
     const scope = nock('https://api.github.com') //Api url
     .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on
     .reply(function(uri, requestBody) { // The reply function
@@ -189,7 +187,27 @@ it('should remove a single label with token authentication in request header', f
     done();
   });
 
+  it('should delete all labels', function (done) {
+
+    //Test arguments
+    var repoOwner = "prolike"
+    var repoName = "gitlabelwizard"
+    var token = "tokenasdasdasd"
+    var labelParsed = [{ 'name': 'test%20label'}, {'name': 'test%20label2'}, {'name': 'test%20label3'}]
+
+    //Loops through the test array and makes the requests to the mocked server using label name
+    for(var label of labelParsed){
+      const scope = nock('https://api.github.com') //Api url
+      .delete('/repos/prolike/gitlabelwizard/labels/'+label.name) //The url-path we are going to recieve HTTP request on
+      .reply(204, function(uri, requestBody) { // The reply function
+      }) 
+      //.log(console.log)
+  }
+    myFunctions.labelsRemoveAll(repoOwner,repoName,labelParsed,token); //Calling the labelsRemoveAll() method with the test arguments
+    done();
   });
+
+});
 
 describe('Unit testing functions', function(done) {
 

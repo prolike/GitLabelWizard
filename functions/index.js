@@ -34,6 +34,7 @@ exports.callMe = functions.https.onRequest((request, response) => {
 			response.status(202)
 			return response.send('OK'); 
 		}
+		// Parse labels and send request HERE
 		response.status(200)
 		return response.send('OK'); 
 });
@@ -58,8 +59,7 @@ exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 
 exports.labelRemove = function(repoOwner,repoName, labelName, token) {
 
-    var labelNameParsed = this.labelParseRemove(labelName);
-    var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelNameParsed;
+    var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelName;
     const options = {
       method: 'DELETE',
       url: urlLabel,
@@ -100,7 +100,7 @@ exports.labelsAddAll = function(repoOwner,repoName, labelArray, token) {
 	//console.log(labelArray);
 	for(var label of labelArray){
 		//console.log(label);
-		exports.labelAdd(repoOwner, repoName, label, token);
+		this.labelAdd(repoOwner, repoName, label, token);
 	}
 	/*labelArray.forEach(function(label){
 		console.log(label);
@@ -109,7 +109,10 @@ exports.labelsAddAll = function(repoOwner,repoName, labelArray, token) {
 } 
 
 exports.labelsRemoveAll = function(repoOwner,repoName, labelArray, token) {
-	return null;
+	//Loops through the given array of labels and uses each in the labelRemove() method
+	for(var label of labelArray){
+		this.labelRemove(repoOwner, repoName, label.name, token);
+	}
 } 
 
 exports.labelParseRemove = function(labelName) {
