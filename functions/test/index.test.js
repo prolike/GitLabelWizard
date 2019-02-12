@@ -85,7 +85,7 @@ describe('Github Label HTTP operations test - Mock server (Nock)', function(done
 it('labelAdd', function (done) {
     var repoOwner = "prolike"
     var repoName = "gitlabelwizard"
-    var token = "tokenasdasdasd"
+    var token = "token"
     var labelObject = "{'name': 'test label', 'color': 'ffffff'}"
 
     //Mock server 
@@ -93,6 +93,7 @@ it('labelAdd', function (done) {
     .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on
     .reply(function(uri, requestBody) { // The reply function
       //console.log('path:', this.req)
+      // console.log('headers:', this.req.headers)
      // console.log('headers:', requestBody)
       expect(requestBody).to.equal(labelObject)
     }) 
@@ -112,13 +113,48 @@ it('labelRemove', function (done) {
     const scope = nock('https://api.github.com')
     .delete('/repos/prolike/gitlabelwizard/labels/'+labelNameParsed)
     .reply(204, function(uri, requestBody) {
-      //console.log('path:', this.req)
     })
     //.log(console.log);
     myFunctions.labelRemove(repoOwner,repoName,labelName,token);
-   
+    //console.log(scope.interceptors[0])
+    done();
+  });
+it('labelAdd check header', function (done) {
+    var repoOwner = "prolike"
+    var repoName = "gitlabelwizard"
+    var token = "token"
+    var labelObject = "{'name': 'test label', 'color': 'ffffff'}"
 
+    //Mock server
+   const scope = nock('https://api.github.com') //Api url
+    .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on
+    .reply(204, function(uri, requestBody) {
+      var loctoken = this.req.headers.authorization;
+      expect(loctoken).to.equal('Basic '+token)
+      expect(requestBody).to.equal(labelObject)
+    })
+    //.log(console.log);
+    myFunctions.labelAdd(repoOwner,repoName,labelObject,token);
+    //console.log(scope.interceptors[0])
+    done();
+  });
 
+it('labelRemove check header', function (done) {
+    var repoOwner = "prolike"
+    var repoName = "gitlabelwizard"
+    var token = "token"
+    var labelNameParsed = "Action%20-%20awaiting%20feed-back"
+    var labelName = "Action - awaiting feed-back"
+
+    //Mock server
+   const scope = nock('https://api.github.com') //Api url
+    .delete('/repos/prolike/gitlabelwizard/labels/'+labelNameParsed)
+    .reply(204, function(uri, requestBody) {
+      var loctoken = this.req.headers.authorization;
+      expect(loctoken).to.equal('Basic '+token)
+    })
+    //.log(console.log);
+    myFunctions.labelRemove(repoOwner,repoName,labelName,token);
     //console.log(scope.interceptors[0])
     done();
   });
@@ -130,7 +166,7 @@ it('labelremove Parsing 1', function (done) {
     var labelName = "Its a test" 
     var expectedOutput = "Its%20a%20test"
     var result = myFunctions.labelParseRemove(labelName);
-    expect(result).to.equal(expectedOutput);
+    expect(expectedOutput).to.equal(result);
     done();
   });
 
@@ -138,9 +174,28 @@ it('labelremove Parsing 2', function (done) {
     var labelName = " Its a  test with multiple spaces " 
     var expectedOutput = "%20Its%20a%20%20test%20with%20multiple%20spaces%20"
     var result = myFunctions.labelParseRemove(labelName);
-    expect(result).to.equal(expectedOutput);
+    expect(expectedOutput).to.equal(result);
     done();
   });
+
+it('labelremove Parsing 3', function (done) {
+    var labelName = "Action - awaiting feed-back" 
+    var expectedOutput = "Action%20-%20awaiting%20feed-back"
+    var result = myFunctions.labelParseRemove(labelName);
+    expect(expectedOutput).to.equal(result);
+    done();
+  });
+
+it('getToken test', function (done) {
+    var token = "xxx123" 
+    var expectedOutput = "xxx123"
+    process.env.TOKENPROLIKE = token
+    var result = myFunctions.getTokenFromEnv();
+    expect(expectedOutput).to.equal(result);
+    done();
+  });
+
+
 });
 
 
