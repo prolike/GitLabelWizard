@@ -193,38 +193,38 @@ it('should remove a single label with token authentication in request header', f
 
 describe('Unit testing functions', function(done) {
 
-it('should parse the removing labelName - Parsing empty spaces with %20', function (done) {
-    var labelName = "Its a test" 
-    var expectedOutput = "Its%20a%20test"
-    var result = myFunctions.labelParseRemove(labelName);
-    expect(expectedOutput).to.equal(result);
-    done();
-  });
+  it('should parse the removing labelName - Parsing empty spaces with %20', function (done) {
+      var labelName = "Its a test" 
+      var expectedOutput = "Its%20a%20test"
+      var result = myFunctions.labelParseRemove(labelName);
+      expect(expectedOutput).to.equal(result);
+      done();
+    });
 
-it('(2) should parse the label - Parsing empty spaces with %20', function (done) {
-    var labelName = " Its a  test with multiple spaces " 
-    var expectedOutput = "%20Its%20a%20%20test%20with%20multiple%20spaces%20"
-    var result = myFunctions.labelParseRemove(labelName);
-    expect(expectedOutput).to.equal(result);
-    done();
-  });
+  it('(2) should parse the label - Parsing empty spaces with %20', function (done) {
+      var labelName = " Its a  test with multiple spaces " 
+      var expectedOutput = "%20Its%20a%20%20test%20with%20multiple%20spaces%20"
+      var result = myFunctions.labelParseRemove(labelName);
+      expect(expectedOutput).to.equal(result);
+      done();
+    });
 
-it('(3) should parse the label - Parsing empty spaces with %20', function (done) {
-    var labelName = "Action - awaiting feed-back" 
-    var expectedOutput = "Action%20-%20awaiting%20feed-back"
-    var result = myFunctions.labelParseRemove(labelName);
-    expect(expectedOutput).to.equal(result);
-    done();
-  });
+  it('(3) should parse the label - Parsing empty spaces with %20', function (done) {
+      var labelName = "Action - awaiting feed-back" 
+      var expectedOutput = "Action%20-%20awaiting%20feed-back"
+      var result = myFunctions.labelParseRemove(labelName);
+      expect(expectedOutput).to.equal(result);
+      done();
+    });
 
-it('should loads token from environment variable', function (done) {
-    var token = "xxx123" 
-    var expectedOutput = "xxx123"
-    process.env.TOKENPROLIKE = token
-    var result = myFunctions.getTokenFromEnv();
-    expect(expectedOutput).to.equal(result);
-    done();
-  });
+  it('should loads token from environment variable', function (done) {
+      var token = "xxx123" 
+      var expectedOutput = "xxx123"
+      process.env.TOKENPROLIKE = token
+      var result = myFunctions.getTokenFromEnv();
+      expect(expectedOutput).to.equal(result);
+      done();
+    });
 
 // it('(2)should loads token from environment variable', function (done) { //TODO
 //     var token = "xxxasdasd123" 
@@ -236,13 +236,31 @@ it('should loads token from environment variable', function (done) {
 //     done();
 //   });
 
-it('should parse the adding labelColor - Parsing # with a empty space', function (done) {
-    var labelObject = {"name": "test label", "color": "#ffffff"}
-    var expectedOutput = {"name": "test label", "color": "ffffff"}
-    var result = myFunctions.labelParseAdd(labelObject);
-    expect(expectedOutput.color).to.equal(result.color);
-    done();
-  });
+  it('should parse the adding labelColor - Parsing # with a empty space', function (done) {
+      var labelObject = {"name": "test label", "color": "#ffffff"}
+      var expectedOutput = {"name": "test label", "color": "ffffff"}
+      var result = myFunctions.labelParseAdd(labelObject);
+      expect(expectedOutput.color).to.equal(result.color);
+      done();
+    });
+
+  it('should return a hardcoded labels for addition', function (done) {
+      var expectedOutput1 = {"name":"Action - awaiting feed-back","color": "6EB82C","description":""}
+      var expectedOutput2 = {"name":"Action - needs grooming","color": "009800","description":""}
+      
+      var result = myFunctions.getLabelsAddHardcoded();
+      expect(expectedOutput1.name).to.equal(result[0].name);
+      expect(expectedOutput2.name).to.equal(result[1].name);
+      done();
+    });
+
+  it('should return a hardcoded labels for deletion', function (done) {
+      var expectedOutput = {"name":"bug"}
+      var result = myFunctions.getLabelsRemoveHardcoded();
+      expect(expectedOutput.name).to.equal(result[0].name);
+      done();
+    });
+
 
 });
 
