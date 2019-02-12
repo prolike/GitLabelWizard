@@ -35,9 +35,10 @@ exports.callMe = functions.https.onRequest((request, response) => {
 exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels";
 	const options = {
-	  method: 'POST',
+		method: 'POST',
 	  url: urlLabel,
 	  body: labelObject,
+		json: true,
 	  headers: {'Authorization':'Basic '+token}
 	};
 
@@ -80,8 +81,18 @@ exports.getApiKeyFromEnv = function() {
 	return null;
 } 
 
+//Adds an array of labels to a GitHub repository
 exports.labelsAddAll = function(repoOwner,repoName, labelArray, token) {
-	return null;
+	//Loops through the given array of labels and uses each lable in the labelAdd() method
+	//console.log(labelArray);
+	for(var label of labelArray){
+		//console.log(label);
+		exports.labelAdd(repoOwner, repoName, label, token);
+	}
+	/*labelArray.forEach(function(label){
+		console.log(label);
+		exports.labelAdd(repoOwner, repoName, label, token);
+	});*/
 } 
 
 exports.labelsRemoveAll = function(repoOwner,repoName, labelArray, token) {

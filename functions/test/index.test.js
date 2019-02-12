@@ -158,6 +158,28 @@ it('should remove a single label with token authentication in request header', f
     //console.log(scope.interceptors[0])
     done();
   });
+  
+    //Testing labelAddAll() method with mocked server
+  it('should add all labels from a array', function (done) {
+
+    //Test arguments
+    var repoOwner = "prolike"
+    var repoName = "gitlabelwizard"
+    var token = "tokenasdasdasd"
+    var labelArray = [ {'name': 'test label', 'color': 'ffffff'}, {'name': 'test label2', 'color': 'ffffff'}, {'name': 'test label3', 'color': 'ffffff'} ]
+
+    //Mock server
+    const scope = nock('https://api.github.com') //Api url
+    .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on
+    .reply(function(uri, requestBody) { // The reply function
+      //console.log('path:', this.req)
+      //console.log('headers:', requestBody)
+      expect(requestBody.name).to.equal(labelArray[0].name) //Expected input - we check on name instead of the whole object
+    }) 
+    //.log(console.log)
+    myFunctions.labelsAddAll(repoOwner,repoName,labelArray,token); //Calling the labelsAddAll() method with the test arguments
+    done();
+  });
 });
 
 
