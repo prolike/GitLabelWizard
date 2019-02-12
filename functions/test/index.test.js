@@ -28,7 +28,7 @@ describe('API TEST - Testing our API entrypoint', function(done) {
   it('should return 403 (Invalid api key) with a invalid request(GET) & invalid APIkey', function (done) {
     let options = {
       method: 'GET',
-      params: {api_key:"asd"}};
+      query: {api_key:"asd"}}; //Det fungerer ikke
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);
@@ -40,7 +40,7 @@ describe('API TEST - Testing our API entrypoint', function(done) {
   it('should return 403 (Forbidden!) with a invalid request(GET) & valid APIkey', function (done) {
     let options = {
       method: 'GET',
-      params: {api_key:apiKey}};
+      query: {api_key:apiKey}};
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);
@@ -63,7 +63,7 @@ describe('API TEST - Testing our API entrypoint', function(done) {
   it('should return 402 (Invalid APIkey) with a valid request(POST) & invalid api key', function (done) {
     let options = {
       method: 'POST',
-      params: {api_key:"invalidKey"}};
+      query: {api_key:"invalidKey"}};
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);
@@ -75,7 +75,7 @@ describe('API TEST - Testing our API entrypoint', function(done) {
   it(' should return 202(OK) with a valid request(POST) & valid APIKey', function (done) {
     let options = {
       method: 'POST',
-      params: {api_key:apiKey}};
+      query: {api_key:apiKey}};
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);

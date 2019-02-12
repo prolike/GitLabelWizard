@@ -7,36 +7,43 @@ apiUrl = "https://api.github.com";
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 
 exports.callMe = functions.https.onRequest((request, response) => {
-		var apiKey_param = request.params['api_key']
+		var apiKey_param = request.query['api_key']
 		var apiKey = "itsatest"
+		console.log(request.query) 
 		try{
-			apiKey = getApiKeyFromEnv()
+			test = getApiKeyFromEnv()
+			apiKey = test
 		}
 		catch(error){
 			console.error(error);
 		}
+		finally{
 		//console.log(apiKey_param)
 		if(apiKey_param === "undefined"){
 			response.status(403);
 			response.statusMessage = "Missing APIKEY!!"
-			return response.send();
+			return response.send("Missing APIKEY!!");
 		}
 		else if(apiKey_param !== apiKey){
 			response.status(403);
 			response.statusMessage = "INVALID APIKEY!!"
-			return response.send();
+			return response.send("INVALID APIKEY");
 		}
 		else if (request.method !== 'POST'){
 			 response.status(403);
+			 response.statusMessage = "INVALID APIKEY!!"
 			 return response.send('Forbidden request method!');
 		}
-		else{
+		else if(request.method === 'POST' && apiKey_param === apiKey){
+			var body = request.body
+			var repoOwner = body.repository.owner.login
+			var repoName = body.repository.name
+			console.log(repoOwner)
+			console.log(repoName)
 			response.status(202)
 			return response.send('OK'); 
 		}
-		// Parse labels and send request HERE
-		response.status(200)
-		return response.send('OK'); 
+		}
 });
 
 // Github HTTP label handler
