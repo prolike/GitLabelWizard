@@ -1,13 +1,20 @@
 const functions = require('firebase-functions');
 const request = require('request');
 
-apiKey = "itsatest"
+
 apiUrl = "https://api.github.com";
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 
 exports.callMe = functions.https.onRequest((request, response) => {
 		var apiKey_param = request.params['api_key']
+		var apiKey = "itsatest"
+		try{
+			apiKey = getApiKeyFromEnv()
+		}
+		catch(error){
+			console.error(error);
+		}
 		//console.log(apiKey_param)
 		if(apiKey_param === "undefined"){
 			response.status(403);
@@ -78,13 +85,13 @@ exports.getTokenFromEnv = function() {
 } 
 
 exports.getBasicAuthTokenFromEnv = function() {
-	var token = functions.config().someservice.id; //https://firebase.google.com/docs/functions/config-env
+	var token = functions.config().github.authkey; //https://firebase.google.com/docs/functions/config-env
 	return token
 } 
 
-
 exports.getApiKeyFromEnv = function() {
-	return null;
+	var token = functions.config().firebase.apikey; //https://firebase.google.com/docs/functions/config-env
+	return token
 } 
 
 //Adds an array of labels to a GitHub repository

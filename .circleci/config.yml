@@ -112,6 +112,9 @@ jobs:
           name: Set github authentication token in firebase from circleci
           command: sudo firebase functions:config:set github.authkey=$GITHUB_BASIC_AUTHENTICATION_TOKEN
       - run:
+          name: Set firebase api key in firebase from circleci
+          command: sudo firebase functions:config:set firebase.apikey=$API_KEY
+      - run:
           name: deploy firebase
           command: sudo ./firebase-deploy/node_modules/.bin/firebase deploy --only functions --token=$FIREBASE_TOKEN
 
