@@ -78,7 +78,7 @@ exports.getTokenFromEnv = function() {
 } 
 
 exports.getBasicAuthTokenFromEnv = function() {
-	var token = process.env.GITHUB_BASIC_AUTHENTICATION_TOKEN;
+	var token = functions.config().someservice.id; //https://firebase.google.com/docs/functions/config-env
 	return token
 } 
 
