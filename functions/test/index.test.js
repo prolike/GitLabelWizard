@@ -75,7 +75,18 @@ describe('API TEST - Testing our API entrypoint', function(done) {
   it(' should return 202(OK) with a valid request(POST) & valid APIKey', function (done) {
     let options = {
       method: 'POST',
-      query: {api_key:apiKey}};
+      query: {api_key:apiKey},
+      body: {
+            "action": "created",
+            "repository": {
+              "id": 169716182,
+              "name": "ax",
+              "owner": {
+                "login": "internshipprolike"
+              }
+            }
+          },
+      json: true};
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);
