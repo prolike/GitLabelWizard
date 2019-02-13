@@ -7,6 +7,7 @@ apiUrl = "https://api.github.com";
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 
 exports.callMe = functions.https.onRequest((request, response) => {
+        console.log(request)
         var apiKey_param = request.query['api_key']
         var apiKey = exports.getApiKeyFromEnv()
         var token = exports.getBasicAuthTokenFromEnv()
