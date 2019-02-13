@@ -152,7 +152,12 @@ workflows:
           requires:
             - unittest
             - end-2-end-test 
-      
+        filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/ # Semantic version number (semver.org), followed by optional .(dot)+string https://regex101.com/r/0h0zLr/1
+
 #       - production: # Deploy to live-prod env
 #          requires:
 #            - unittest
