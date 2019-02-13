@@ -106,7 +106,7 @@ exports.getBasicAuthTokenFromEnv = function() {
 exports.getApiKeyFromEnv = function() {
     var token = "itsatest"
     try{
-    token = functions.config().firebase.apikey; //https://firebase.google.com/docs/functions/config-env
+    token = functions.config().fb.apikey; //https://firebase.google.com/docs/functions/config-env
     }
     catch (e) {
          console.log(e)
