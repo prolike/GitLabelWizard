@@ -103,6 +103,7 @@ exports.getBasicAuthTokenFromEnv = function() {
     return token
 } 
 
+
 exports.getApiKeyFromEnv = function() {
     var token = "itsatest"
     try{
