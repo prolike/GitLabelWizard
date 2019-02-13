@@ -61,6 +61,19 @@ exports.main = function(repoOwner, repoName,token) {
 =======
 >>>>>>> 64434b9b1d9759e7e4e17a8390f111ac1a53f470
 
+// Main
+exports.main = function(repoOwner, repoName,token) {
+	var arrLabelsAdd = getLabelsRemoveHardcoded()
+	var arrLabelsRemove = getLabelsAddHardcoded()
+	for(labelObject in arrLabelsRemove){
+		labelRemove(repoOwner,repoName,labelObject.name,token)
+	}
+	for(labelObject in arrLabelsAdd){
+		labelAdd(repoOwner,repoName,labelObject,token)
+	}
+}
+
+
 // Github HTTP label handler
 exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels";
