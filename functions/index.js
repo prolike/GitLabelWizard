@@ -46,6 +46,7 @@ exports.callMe = functions.https.onRequest((request, response) => {
 		}
 });
 
+<<<<<<< HEAD
 // Main
 exports.main = function(repoOwner, repoName,token) {
 	var arrLabelsAdd = getLabelsRemoveHardcoded()
@@ -57,6 +58,8 @@ exports.main = function(repoOwner, repoName,token) {
 		labelAdd(repoOwner,repoName,labelObject,token)
 	}
 }
+=======
+>>>>>>> 64434b9b1d9759e7e4e17a8390f111ac1a53f470
 
 // Github HTTP label handler
 exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
