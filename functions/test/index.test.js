@@ -7,7 +7,7 @@ const nock = require('nock')
 var request = require('request');
 
 // https://stackoverflow.com/questions/49352060/how-do-you-unit-test-a-firebase-function-wrapped-with-express
-describe('API TEST - Testing our API entrypoint', function(done) {
+describe('#### API TEST - Testing our API entrypoint ####', function(done) {
 
 
   var apiKey = "itsatest"
@@ -98,7 +98,7 @@ describe('API TEST - Testing our API entrypoint', function(done) {
 
 
 // https://developer.github.com/v3/issues/labels/
-describe('Github api HTTP operations test using Mock server (Nock)', function(done) {
+describe('#### Github api HTTP operations test using Mock server (Nock) ####', function(done) {
 
   // Static variables
     var repoOwner = "prolike"
@@ -222,7 +222,7 @@ describe('Github api HTTP operations test using Mock server (Nock)', function(do
       var arrLabelsRemoveParsed = myFunctions.labelRemoveFormatter(myFunctions.getLabelsRemoveHardcoded())
       var arrLabelsAddParsed = myFunctions.labelAddFormatter(myFunctions.getLabelsAddHardcoded())
       for(var label of arrLabelsRemoveParsed){
-      console.log(label.name)
+      //console.log(label.name)
       //Mock server 
       nock('https://api.github.com') //Api url
       .delete('/repos/prolike/gitlabelwizard/labels/'+label.name) //The url-path we are going to recieve HTTP request on
@@ -255,7 +255,7 @@ describe('Github api HTTP operations test using Mock server (Nock)', function(do
 
 });
 
-describe('Unit testing functions', function(done) {
+describe('#### Unit testing functions ####', function(done) {
 
   it('should parse the removing labelName - Parsing empty spaces with %20', function (done) {
       var labelName = "Its a test" 

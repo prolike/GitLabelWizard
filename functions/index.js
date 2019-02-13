@@ -7,7 +7,7 @@ apiUrl = "https://api.github.com";
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 
 exports.callMe = functions.https.onRequest((request, response) => {
-        console.log(request)
+
         var apiKey_param = request.query['api_key']
         var apiKey = exports.getApiKeyFromEnv()
         var token = exports.getBasicAuthTokenFromEnv()
@@ -30,12 +30,20 @@ exports.callMe = functions.https.onRequest((request, response) => {
              return response.send('Forbidden request method!');
         }
         else if(request.method === 'POST' && apiKey_param === apiKey){
-            var body = request.body
-            var repoOwner = body.repository.owner.login
-            var repoName = body.repository.name
-            exports.main(repoOwner,repoName,token)
-            response.status(202)
-            return response.send('OK'); 
+            var body = JSON.parse(request.body.payload)
+            if(exports.validRequest(body)){
+                var repoOwner = body.repository.owner.login
+                var repoName = body.repository.name
+                exports.main(repoOwner,repoName,token)
+                response.status(202)
+                return response.send('OK'); 
+            }
+            else{
+              if(exports.firstRequest(body))
+              response.status(200)
+              return response.send('READY!');
+            }
+           
         }
         response.status(500)
         return response.send('?'); 
@@ -57,7 +65,27 @@ exports.main = function(repoOwner, repoName,token) {
 
 }
 
+exports.firstRequest = function(body){
+  try{
+    var zen = body.zen
+    return true
+  }
+  catch(exp){
+    console.log(exp)
+    return false
+  }
+}
 
+exports.validRequest = function(body){
+  try{
+    var repoOwner = body.repository.owner.login
+    return true
+  }
+  catch(exp){
+    console.log(exp)
+    return false
+  }
+}
 
 
 // Github HTTP label handler
@@ -101,7 +129,7 @@ exports.getBasicAuthTokenFromEnv = function() {
     token = functions.config().github.authkey; //https://firebase.google.com/docs/functions/config-env
     }
     catch(e){
-    console.log(e)
+          console.error("TOKEN CANT BE LOADED FROM FIREBASE ENV")
     }
     return token
 } 
@@ -113,7 +141,7 @@ exports.getApiKeyFromEnv = function() {
     token = functions.config().fb.apikey; //https://firebase.google.com/docs/functions/config-env
     }
     catch (e) {
-         console.log(e)
+           console.error("API KEY CANT BE LOADED FROM FIREBASE ENV")
     }
     return token
 } 
