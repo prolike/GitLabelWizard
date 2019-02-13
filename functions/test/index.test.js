@@ -366,12 +366,6 @@ describe('Unit testing functions', function(done) {
       done();
     });
 
-// it('test', function (done) {
-//       var labelob = {"name":"Action2 - awaiting feed-back","color": "6EB82C","description":""}
-//       myFunctions.labelAdd("internshipprolike","xa",labelob,"YW5zdHk5MzpTb2x2ZTk5R0g=");
-//       done();
-//     });
-
 });
 
 
