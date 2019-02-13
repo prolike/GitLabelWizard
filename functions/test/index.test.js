@@ -218,6 +218,39 @@ describe('Github api HTTP operations test using Mock server (Nock)', function(do
     done();
   });
 
+  it('should execute the main method and perform addition and deletion using hardcoded labels', function (done) {
+      var arrLabelsRemoveParsed = myFunctions.labelRemoveFormatter(myFunctions.getLabelsRemoveHardcoded())
+      var arrLabelsAddParsed = myFunctions.labelAddFormatter(myFunctions.getLabelsAddHardcoded())
+      for(var label of arrLabelsRemoveParsed){
+      console.log(label.name)
+      //Mock server 
+      nock('https://api.github.com') //Api url
+      .delete('/repos/prolike/gitlabelwizard/labels/'+label.name) //The url-path we are going to recieve HTTP request on
+      .reply(function(uri, requestBody) { // The reply function
+        var loctoken = this.req.headers.authorization;
+        expect(loctoken).to.equal('Basic '+token)
+        //console.log('path:', this.req)
+        // console.log('headers:', this.req.headers)
+       // console.log('headers:', requestBody)
+      }) 
+      }
+       for(var label of arrLabelsAddParsed){
+        //Mock server 
+       const scope = nock('https://api.github.com') //Api url
+      .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on
+      .reply(function(uri, requestBody) { // The reply function
+        var loctoken = this.req.headers.authorization;
+        expect(loctoken).to.equal('Basic '+token)
+        //console.log('path:', this.req)
+        // console.log('headers:', this.req.headers)
+       // console.log('headers:', requestBody)
+       expect(arrLabelsAddParsed).to.deep.include(requestBody) //Expected input - we check on name instead of the whole object
+      })}
+      //.log(console.log)
+      myFunctions.main(repoOwner,repoName,token);
+      done();
+    });
+
 
 
 });
