@@ -12,7 +12,6 @@ describe('API TEST - Testing our API entrypoint', function(done) {
 
   var apiKey = "itsatest"
 
-
   it('should return 403 (Missing api key) with a invalid request(GET) & no APIkey', function (done) {
     let options = {
       method: 'GET'};
@@ -310,11 +309,9 @@ describe('Unit testing functions', function(done) {
       done();
     });
 
-  it('should loads token from environment variable', function (done) {
-      var token = "xxx123" 
-      var expectedOutput = "xxx123"
-      process.env.TOKENPROLIKE = token
-      var result = myFunctions.getTokenFromEnv();
+  it('should loads api token from environment variable', function (done) {
+      var expectedOutput = "itsatest"
+      var result = myFunctions.getApiKeyFromEnv();
       expect(expectedOutput).to.equal(result);
       done();
     });

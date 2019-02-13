@@ -8,12 +8,8 @@ apiUrl = "https://api.github.com";
 
 exports.callMe = functions.https.onRequest((request, response) => {
         var apiKey_param = request.query['api_key']
-        var apiKey = "itsatest"
-        var token = "testtoken"
-        tmp = exports.getApiKeyFromEnv()
-        apiKey = test
-        tmp2 = exports.getBasicAuthTokenFromEnv()
-        token = tmp2
+        var apiKey = exports.getApiKeyFromEnv()
+        var token = exports.getBasicAuthTokenFromEnv()
         
   
         //console.log(apiKey_param)
@@ -39,7 +35,9 @@ exports.callMe = functions.https.onRequest((request, response) => {
             exports.main(repoOwner,repoName,token)
             response.status(202)
             return response.send('OK'); 
-        }return response.send('?'); 
+        }
+        response.status(500)
+        return response.send('?'); 
 });
 
 // Main
@@ -47,12 +45,12 @@ exports.main = function(repoOwner, repoName,token) {
 
     var arrLabelsRemoveParsed = exports.labelRemoveFormatter(exports.getLabelsRemoveHardcoded())
     var arrLabelsAddParsed = exports.labelAddFormatter(exports.getLabelsAddHardcoded())
-    
+
     for(var labelObject of arrLabelsRemoveParsed){
-        exports.labelRemove(repoOwner,repoName,this.labelObject.name,token)
+        exports.labelRemove(repoOwner,repoName,labelObject.name,token)
     }
     for(var labelObject2 of arrLabelsAddParsed){
-        exports.labelAdd(repoOwner,repoName,this.labelObject2,token)
+        exports.labelAdd(repoOwner,repoName,labelObject2,token)
     }
 }
 
@@ -93,24 +91,25 @@ exports.labelRemove = function(repoOwner,repoName, labelName, token) {
     });
 } 
 
-// Local functions
-exports.getTokenFromEnvDev = function() {
-    var token = process.env.TOKENDEV;
-    return token;
-} 
-
-exports.getTokenFromEnv = function() {
-    var token = process.env.TOKENPROLIKE;
-    return token
-} 
-
 exports.getBasicAuthTokenFromEnv = function() {
-    var token = functions.config().github.authkey; //https://firebase.google.com/docs/functions/config-env
+    var token = "AUTH" 
+    try{
+    token = functions.config().github.authkey; //https://firebase.google.com/docs/functions/config-env
+    }
+    catch(e){
+    console.log(e)
+    }
     return token
 } 
 
 exports.getApiKeyFromEnv = function() {
-    var token = functions.config().firebase.apikey; //https://firebase.google.com/docs/functions/config-env
+    var token = "itsatest"
+    try{
+    token = functions.config().firebase.apikey; //https://firebase.google.com/docs/functions/config-env
+    }
+    catch (e) {
+         console.log(e)
+    }
     return token
 } 
 
