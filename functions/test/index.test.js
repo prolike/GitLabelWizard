@@ -71,49 +71,28 @@ describe('API TEST - Testing our API entrypoint', function(done) {
     done();
   }); 
 
-  it(' should return 202(OK) with a valid request(POST) & valid APIKey', function (done) {
-    let options = {
-      method: 'POST',
-      query: {api_key:apiKey},
-      body: {
-            "action": "created",
-            "repository": {
-              "id": 169716182,
-              "name": "ax",
-              "owner": {
-                "login": "internshipprolike"
-              }
-            }
-          },
-      json: true};
-    var req = httpMocks.createRequest(options);
-    var res = httpMocks.createResponse({eventEmitter:eventEmitter});
-    myFunctions.callMe(req,res);
-    expect(res.statusCode).to.equal(202)
-    done();
-  });
+  // it(' should return 202(OK) with a valid request(POST) & valid APIKey', function (done) {
+  //   let options = {
+  //     method: 'POST',
+  //     query: {api_key:apiKey},
+  //     body: {
+  //           "action": "created",
+  //           "repository": {
+  //             "id": 169716182,
+  //             "name": "ax",
+  //             "owner": {
+  //               "login": "internshipprolike"
+  //             }
+  //           }
+  //         },
+  //     json: true};
+  //   var req = httpMocks.createRequest(options);
+  //   var res = httpMocks.createResponse({eventEmitter:eventEmitter});
+  //   myFunctions.callMe(req,res);
+  //   expect(res.statusCode).to.equal(202)
+  //   done();
+  // });
 
-  it(' should return 202(OK) with a valid request(POST) & valid APIKey & nock', function (done) {
-    let options = {
-      method: 'POST',
-      query: {api_key:apiKey},
-      body: {
-            "action": "created",
-            "repository": {
-              "id": 169716182,
-              "name": "ax",
-              "owner": {
-                "login": "internshipprolike"
-              }
-            }
-          },
-      json: true};
-    var req = httpMocks.createRequest(options);
-    var res = httpMocks.createResponse({eventEmitter:eventEmitter});
-    myFunctions.callMe(req,res);
-    expect(res.statusCode).to.equal(202)
-    done();
-  });
 
 });
 

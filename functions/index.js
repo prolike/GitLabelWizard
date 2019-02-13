@@ -71,9 +71,9 @@ exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
     };
 
     request(options, function (error, response, body) {
-      console.log('error:', error); // Print the error if one occurred
-      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-      console.log('body:', body); // Print the HTML for the Google homepage.
+      //console.log('error:', error); // Print the error if one occurred
+      //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+      //console.log('body:', body); // Print the HTML for the Google homepage.
     });
 } 
 
@@ -86,9 +86,9 @@ exports.labelRemove = function(repoOwner,repoName, labelName, token) {
       headers: {'Content-type': 'application/vnd.github.symmetra-preview+json','user-agent':'node-js2','authorization':'Basic '+token}
     };
     request(options, function (error, response, body) {
-    console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
+  //  console.log('error:', error); // Print the error if one occurred
+   // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+   // console.log('body:', body); // Print the HTML for the Google homepage.
 
     });
 } 
