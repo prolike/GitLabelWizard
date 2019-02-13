@@ -46,6 +46,7 @@ exports.callMe = functions.https.onRequest((request, response) => {
 		}
 });
 
+
 // Github HTTP label handler
 exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
 	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels";
