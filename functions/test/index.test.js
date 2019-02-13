@@ -94,6 +94,28 @@ describe('API TEST - Testing our API entrypoint', function(done) {
     done();
   });
 
+  it(' should return 202(OK) with a valid request(POST) & valid APIKey & nock', function (done) {
+    let options = {
+      method: 'POST',
+      query: {api_key:apiKey},
+      body: {
+            "action": "created",
+            "repository": {
+              "id": 169716182,
+              "name": "ax",
+              "owner": {
+                "login": "internshipprolike"
+              }
+            }
+          },
+      json: true};
+    var req = httpMocks.createRequest(options);
+    var res = httpMocks.createResponse({eventEmitter:eventEmitter});
+    myFunctions.callMe(req,res);
+    expect(res.statusCode).to.equal(202)
+    done();
+  });
+
 });
 
 
@@ -230,11 +252,11 @@ describe('Github api HTTP operations test using Mock server (Nock)', function(do
         var loctoken = this.req.headers.authorization;
         expect(loctoken).to.equal('Basic '+token)
         //console.log('path:', this.req)
-        // console.log('headers:', this.req.headers)
-       // console.log('headers:', requestBody)
+        //console.log('headers:', this.req.headers)
+        //console.log('headers:', requestBody)
       }) 
       }
-       for(var label of arrLabelsAddParsed){
+      for(var label2 of arrLabelsAddParsed){
         //Mock server 
        const scope = nock('https://api.github.com') //Api url
       .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on

@@ -9,15 +9,13 @@ apiUrl = "https://api.github.com";
 exports.callMe = functions.https.onRequest((request, response) => {
         var apiKey_param = request.query['api_key']
         var apiKey = "itsatest"
-        console.log(request.query) 
-        try{
-            test = getApiKeyFromEnv()
-            apiKey = test
-        }
-        catch(error){
-            console.error(error);
-        }
-        finally{
+        var token = "testtoken"
+        tmp = exports.getApiKeyFromEnv()
+        apiKey = test
+        tmp2 = exports.getBasicAuthTokenFromEnv()
+        token = tmp2
+        
+  
         //console.log(apiKey_param)
         if(apiKey_param === "undefined"){
             response.status(403);
@@ -38,12 +36,10 @@ exports.callMe = functions.https.onRequest((request, response) => {
             var body = request.body
             var repoOwner = body.repository.owner.login
             var repoName = body.repository.name
-            var token = "tokenasd"
-            //main(repoOwner,repoName,token)
+            exports.main(repoOwner,repoName,token)
             response.status(202)
             return response.send('OK'); 
-        }
-        }
+        }return response.send('?'); 
 });
 
 // Main
@@ -53,11 +49,10 @@ exports.main = function(repoOwner, repoName,token) {
     var arrLabelsAddParsed = exports.labelAddFormatter(exports.getLabelsAddHardcoded())
     
     for(var labelObject of arrLabelsRemoveParsed){
-        console.log(labelObject.name)
-        exports.labelRemove(repoOwner,repoName,labelObject.name,token)
+        exports.labelRemove(repoOwner,repoName,this.labelObject.name,token)
     }
-    for(var labelObject of arrLabelsAddParsed){
-        exports.labelAdd(repoOwner,repoName,labelObject,token)
+    for(var labelObject2 of arrLabelsAddParsed){
+        exports.labelAdd(repoOwner,repoName,this.labelObject2,token)
     }
 }
 
