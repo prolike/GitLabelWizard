@@ -125,20 +125,20 @@ workflows:
             branches:
               only:
                 - /ready\/.+/ 
-      - unittest:
+      - unittest: 
           filters:
             tags:
-              only: /*./
+              only: /.*/
             branches:
-              only: /*./
+              only: /.*/
       - end-2-end-test: 
           requires:
             - unittest
           filters:
             tags:
-              only: /*./
+              only: /.*/
             branches:
-              only: /*./  
+              only: /.*/  
       - deliver:
           requires:
             - unittest
