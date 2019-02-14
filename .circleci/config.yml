@@ -126,9 +126,19 @@ workflows:
               only:
                 - /ready\/.+/ 
       - unittest
+          filters:
+            tags:
+              only: /*./
+            branches:
+              only: /*./
       - end-2-end-test: 
           requires:
             - unittest
+          filters:
+            tags:
+              only: /*./
+            branches:
+              only: /*./  
       - deliver:
           requires:
             - unittest
