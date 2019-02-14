@@ -7,18 +7,18 @@ apiUrl = "https://api.github.com";
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 
 exports.callMe = functions.https.onRequest((request, response) => {
-		var apiKey_param = request.query['api_key']
-		var apiKey = "itsatest"
-		console.log(request.query) 
-		try{
-			test = getApiKeyFromEnv()
-			apiKey = test
-		}
-		catch(error){
-			console.error(error);
-		}
-		finally{
-		//console.log(apiKey_param)
+	var apiKey_param = request.query['api_key']
+	var apiKey = "itsatest"
+	console.log(request.query) 
+	try{
+		test = getApiKeyFromEnv()
+		apiKey = test
+	}
+	catch(error){
+		console.error(error);
+	}
+	finally{
+	//console.log(apiKey_param)
 		if(apiKey_param === "undefined"){
 			response.status(403);
 			response.statusMessage = "Missing APIKEY!!"
@@ -43,41 +43,54 @@ exports.callMe = functions.https.onRequest((request, response) => {
 			response.status(202)
 			return response.send('OK'); 
 		}
-		}
+	}
 });
 
 // Github HTTP label handler
 exports.labelAdd = function(repoOwner,repoName, labelObject, token) {
-	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels";
+
+	//Request options
+	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/label";
 	const options = {
 		method: 'POST',
-	  url: urlLabel,
-	  body: labelObject,
+		url: urlLabel,
+	  	body: labelObject,
 		json: true,
-	  headers: {'Authorization':'Basic '+token}
-	};
+  		headers: {'Authorization':'Basic '+token}
+  	};
 
-	request(options, function (error, response, body) {
-	  //console.log('error:', error); // Print the error if one occurred
-	  //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-	  //console.log('body:', body); // Print the HTML for the Google homepage.
-	});
-} 
+  	//Request callback
+ 	function callback(error, response, body) {
+ 		if(error && error !== null) {
+ 			console.log("FAILED");
+ 			console.log(error);
+ 			//throw new Error(error); //Need to catch this error
+		} else if(!error && response.statusCode == 200) {
+			console.log("SUCCESS");		}
+	}
+	request(options, callback) //Request execution
+}
 
 exports.labelRemove = function(repoOwner,repoName, labelName, token) {
-
-    var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelName;
-    const options = {
-      method: 'DELETE',
-      url: urlLabel,
-      headers: {'Authorization':'Basic '+token}
-    };
-	request(options, function (error, response, body) {
-	  //console.log('error:', error); // Print the error if one occurred
-	  //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-	  //console.log('body:', body); // Print the HTML for the Google homepage.
-
-	});
+	try {
+    	var urlLabel = apiUrl+'/repos/'+repoOwner+"/"+repoName+"/labels/"+labelName;
+    	const options = {
+      		method: 'DELETE',
+      		url: urlLabel,
+      		headers: {'Authorization':'Basic '+token}
+    	};
+		request(options, function (error, response, body) {
+			if(error && error !== null)
+			{
+				console.log(error);
+			}
+		//console.log('error:', error); // Print the error if one occurred
+	  	//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+		//console.log('body:', body); // Print the HTML for the Google homepage.
+		});
+	}catch(error) {
+		console.error(error.message)
+	}
 } 
 
 // Local functions
@@ -127,13 +140,10 @@ exports.labelParseRemove = function(labelName) {
 
 } 
 
-
 exports.labelParseAdd = function(jsonObject) {
 	jsonObject.color = jsonObject.color.replace("#", "");
-    return jsonObject
+    return jsonObject;
 } 
-
-
 
 exports.getLabelsAddHardcoded = function() {
 	var addLabels = [{"name":"Action - awaiting feed-back","color": "6EB82C","description":""},
@@ -152,7 +162,7 @@ exports.getLabelsAddHardcoded = function() {
 					 {"name":"Status - in progress","color": "EDEDED","description":""},
 					 {"name":"Status - up next","color": "EEEEEE","description":""},
 					 {"name":"Tech-challenge","color": "5319E7","description":""}]
- return addLabels
+ return addLabels;
 } 
 
 exports.getLabelsRemoveHardcoded = function() {
@@ -164,5 +174,5 @@ exports.getLabelsRemoveHardcoded = function() {
 						{"name":"invalid"},
 						{"name":"question"},
 						{"name":"wontfix"}]
-	return removeLabels
+	return removeLabels;
 } 
