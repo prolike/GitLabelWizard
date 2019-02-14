@@ -27,14 +27,14 @@ https://firebase.google.com/
 
 ## Installation
 
-##### 1. Clone github repo
+#### 1. Clone github repo
 
 Clone the repository
 ```
 $ git clone https://github.com/prolike/gitlabelwizard.git
 ```
 
-##### 2. Install Node.js (Skip if you have already Node.js preinstalled)
+#### 2. Install Node.js (Skip if you have already Node.js preinstalled)
 
 Download and install your Node.js
 https://nodejs.org/en/download/
@@ -57,13 +57,13 @@ You can find your projectID from your firebase console.
 ```
 
 
-##### 3. Install firebase tools
+#### 4. Install firebase tools
 
 ```
 npm install -g firebase-tools
 ```
 
-##### 4. Install npm modules
+#### 5. Install npm modules
 
 
 ```
@@ -79,7 +79,7 @@ $ cd npm install
 ## Deployment guideline 
 
 In order to deploy the project into a firebase functions, you need to gain following tokens:
-##### 1. A random generated API key
+#### 1. A random generated API key
 Write following in your terminal/commandline
 ```bash
 $ date +%s | sha256sum | base64 | head -c 32 ; echo 
@@ -87,7 +87,7 @@ $ date +%s | sha256sum | base64 | head -c 32 ; echo
 You will get something likely: 
 `$ nGNiMDYzMWVjMmE2ZGYxNGZkNTJmMjYz`
 This is your secret **RANDOM_GENERATED_API_KEY** for the project, save the api key and dont expose it someplace!
-##### 2. Your basic authentication token for github project (Base64)
+#### 2. Your basic authentication token for github project (Base64)
 Write following in your terminal/
 
 ```bash
@@ -99,7 +99,7 @@ You will get something likely
 
 This is your secret **GITHUB_BASIC_AUTHENTICATION_TOKEN** for the project, save the key and dont expose it someplace!
 
-##### 3. Your authentication token for firebase
+#### 3. Your authentication token for firebase
 
 Write following in your terminal/commandline
 
