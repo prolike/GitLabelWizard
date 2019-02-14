@@ -125,7 +125,7 @@ workflows:
             branches:
               only:
                 - /ready\/.+/ 
-      - unittest
+      - unittest:
           filters:
             tags:
               only: /*./
