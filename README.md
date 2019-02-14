@@ -1,7 +1,7 @@
 ![](https://i.gyazo.com/0839e2c4186caee4f3ba67227bf2f5ea.png)
 
 
-# GitLabelWizardBot 1.0.0 [![CircleCI](https://circleci.com/gh/prolike/GitLabelWizard/tree/master.svg?style=svg)](https://circleci.com/gh/prolike/GitLabelWizard/tree/master) [![GitHub issues open](https://img.shields.io/github/issues/Prolike/gitlabelwizard.svg?maxAge=2592000)](https://github.com/prolike/GitLabelWizard/issues)
+# GitLabelWizard 1.0.0 [![CircleCI](https://circleci.com/gh/prolike/GitLabelWizard/tree/master.svg?style=svg)](https://circleci.com/gh/prolike/GitLabelWizard/tree/master) [![GitHub issues open](https://img.shields.io/github/issues/Prolike/gitlabelwizard.svg?maxAge=2592000)](https://github.com/prolike/GitLabelWizard/issues)
 
 
 
@@ -12,12 +12,70 @@ https://github.com/apps/gitlabelwizardbot
 
 ## Prerequisites
 ```
-1. Firebase account with a Blaze plan (Will most likely be free anyway)
-2. CircleCI account (optionial)
-3. Nodejs installed
+1. A Firebase account with a Blaze plan* 
+* You need a account with blaze plan to be have any outbound connection but no worries it will be almost free anyway.
+2. A Firebase project created
+3. CircleCI account (optionial)
+4. Git & Node.js installed
 ``` 
+## Firebase setup
+
+1. Create a project
+https://firebase.google.com/
+
+
+
 ## Installation
 
+##### 1. Clone github repo
+
+Clone the repository
+```
+$ git clone https://github.com/prolike/gitlabelwizard.git
+```
+
+##### 2. Install Node.js (Skip if you have already Node.js preinstalled)
+
+Download and install your Node.js
+https://nodejs.org/en/download/
+
+#### 3. Configure firebase file
+
+Open `.firebasesrc` and change the default value to your **projectID**.
+You can find your projectID from your firebase console.
+- Enter your firebase project
+- Click project settings
+- There you have your project ID
+
+```
+{
+  "projects": {
+    "default": "gitlabelwizard-8a56d"
+  }
+}
+
+```
+
+
+##### 3. Install firebase tools
+
+```
+npm install -g firebase-tools
+```
+
+##### 4. Install npm modules
+
+
+```
+$ cd GitLabelWizard/functions
+$ cd npm install
+```
+
+
+```
+$ cd GitLabelWizard/functions
+$ cd npm install
+```
 ## Deployment guideline 
 
 In order to deploy the project into a firebase functions, you need to gain following tokens:
