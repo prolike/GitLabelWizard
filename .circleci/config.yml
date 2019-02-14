@@ -34,8 +34,6 @@ jobs:
           paths:
             - ./functions/node_modules
           key: v1-dependencies-{{ checksum "./functions/package.json" }}
-      #- run: sudo npm config set functions:firebase $FIREBASE_TOKEN -prefix ./functions
-      #- run: sudo npm run serve --prefix ./functions/
       - run: npm test --prefix ./functions/
 
   end-2-end-test:
@@ -128,8 +126,7 @@ workflows:
               only:
                 - /ready\/.+/ 
       - unittest
-      - end-2-end-test: #deploy to local docker (PLE) and run tests - massage your API :-)
-          # Run your testes (end-to-end tests? Split them up?)
+      - end-2-end-test: 
           requires:
             - unittest
       - deliver:
@@ -140,7 +137,7 @@ workflows:
             branches:
               only:
                 - /ready\/.+/ 
-      - stage: # Deploy to stage 
+      - stage: # Staging
           requires:
             - unittest
             - end-2-end-test 
@@ -148,7 +145,7 @@ workflows:
               branches:
                 only:
                   - master
-      - prod: # Deploy to stage 
+      - prod: # Deploy to prod only by version
           requires:
             - unittest
             - end-2-end-test 
