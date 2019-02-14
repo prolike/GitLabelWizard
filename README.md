@@ -30,19 +30,25 @@ You will get something likely:
 `$ nGNiMDYzMWVjMmE2ZGYxNGZkNTJmMjYz`
 This is your secret **RANDOM_GENERATED_API_KEY** for the project, save the api key and dont expose it someplace!
 ##### 2. Your basic authentication token for github project (Base64)
-Write following in your terminal/commandline
+Write following in your terminal/
+
 ```bash
 $ echo username:password | base64
 ```
+
 You will get something likely
 `$ eGF4YW5zdHhheGFzOnNhc2RICg==`
+
 This is your secret **GITHUB_BASIC_AUTHENTICATION_TOKEN** for the project, save the key and dont expose it someplace!
 
 ##### 3. Your authentication token for firebase
+
 Write following in your terminal/commandline
+
 ```
 firebase login:ci
 ```
+
 You will get prompted and redirected to a login screen for firebase, sign yourself in and then the token will be showed in terminal.
 
 ```
@@ -54,9 +60,11 @@ Waiting for authentication...
 
 Example: firebase deploy --token "$FIREBASE_TOKEN"
 ```
+
 This is your secret **FIREBASE_TOKEN** for the project, save the key and dont expose it someplace!
 
 ## Deployment
+
 ```
 $ firebase functions:config:set github.authkey={YOUR_GITHUB_BASIC_AUTHENTICATION_TOKEN} --token={YOUR_FIREBASE_TOKEN_HERE}
 $ firebase functions:config:set fb.apikey={YOUR_RANDOM_GENERATED_API_KEY} --token={YOUR_FIREBASE_TOKEN_HERE}
