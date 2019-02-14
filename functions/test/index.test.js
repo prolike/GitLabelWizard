@@ -12,61 +12,76 @@ describe('#### API TEST - Testing our API entrypoint ####', function(done) {
 
   var apiKey = "itsatest"
 
-  it('should return 403 (Missing api key) with a invalid request(GET) & no APIkey', function (done) {
+  it('should return 401 (Forbidden request method) with a invalid request(GET) & no APIkey', function (done) {
     let options = {
       method: 'GET'};
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);
-    expect(res.statusCode).to.equal(403)
+    var expectedStatusCode = 401
+    var expectedStatusMessage = "Forbidden request method"
+    expect(expectedStatusCode).to.equal(res.statusCode)
+    expect(expectedStatusMessage).to.equal(res.statusMessage)
+    
     //console.log(res)
     //console.log(res)
     done();
   });
 
-  it('should return 403 (Invalid api key) with a invalid request(GET) & invalid APIkey', function (done) {
+  it('should return 401 (Invalid api key) with a invalid request(GET) & invalid APIkey', function (done) {
     let options = {
       method: 'GET',
       query: {api_key:"asd"}}; //Det fungerer ikke
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);
-    expect(res.statusCode).to.equal(403)
-    //console.log(res)
+    var expectedStatusCode = 401
+    var expectedStatusMessage = "Forbidden request method"
+    expect(expectedStatusCode).to.equal(res.statusCode)
+    expect(expectedStatusMessage).to.equal(res.statusMessage)
     done();
   });
 
-  it('should return 403 (Forbidden!) with a invalid request(GET) & valid APIkey', function (done) {
+  it('should return 401(Forbidden!) with a invalid request(GET) & valid APIkey', function (done) {
     let options = {
       method: 'GET',
       query: {api_key:apiKey}};
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);
-    expect(res.statusCode).to.equal(403)
+    var expectedStatusCode = 401
+    var expectedStatusMessage = "Forbidden request method"
+    expect(expectedStatusCode).to.equal(res.statusCode)
+    expect(expectedStatusMessage).to.equal(res.statusMessage)
     //console.log(res)
     done();
   });
 
-  it('should return 402 (Missing APIkey) with a valid request(POST) & no APIkey', function (done) {
+  it('should return 401 (Missing APIkey) with a valid request(POST) & no APIkey', function (done) {
     let options = {
       method: 'POST'};
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);
-    expect(res.statusCode).to.equal(403)
+    var expectedStatusCode = 401
+    var expectedStatusMessage = "Missing API key"
+    expect(expectedStatusCode).to.equal(res.statusCode)
+    expect(expectedStatusMessage).to.equal(res.statusMessage)
     //console.log(res)
     done();
   });
 
-  it('should return 402 (Invalid APIkey) with a valid request(POST) & invalid api key', function (done) {
+  it('should return 401 (Invalid API key) with a valid request(POST) & invalid api key', function (done) {
     let options = {
       method: 'POST',
       query: {api_key:"invalidKey"}};
     var req = httpMocks.createRequest(options);
     var res = httpMocks.createResponse({eventEmitter:eventEmitter});
     myFunctions.callMe(req,res);
-    expect(res.statusCode).to.equal(403)
+    var expectedStatusCode = 401
+    var expectedStatusMessage = "Invalid API key"
+    expect(expectedStatusCode).to.equal(res.statusCode)
+    expect(expectedStatusMessage).to.equal(res.statusMessage)
     //console.log(res)
     done();
   }); 
@@ -100,7 +115,7 @@ describe('#### API TEST - Testing our API entrypoint ####', function(done) {
 // https://developer.github.com/v3/issues/labels/
 describe('#### Github api HTTP operations test using Mock server (Nock) ####', function(done) {
 
-  // Static variables
+   // Static variables
     var repoOwner = "prolike"
     var repoName = "gitlabelwizard"
     var token = "token"
@@ -114,8 +129,8 @@ describe('#### Github api HTTP operations test using Mock server (Nock) ####', f
       .post('/repos/prolike/gitlabelwizard/labels') //The url-path we are going to recieve HTTP request on
       .reply(function(uri, requestBody) { // The reply function
         //console.log('path:', this.req)
-        // console.log('headers:', this.req.headers)
-       // console.log('headers:', requestBody)
+        //console.log('headers:', this.req.headers)
+        //console.log('headers:', requestBody)
         expect(JSON.parse(requestBody)).to.equal(labelObject)
       }) 
       //.log(console.log)
@@ -164,12 +179,9 @@ describe('#### Github api HTTP operations test using Mock server (Nock) ####', f
     const scope = nock('https://api.github.com')
     .delete('/repos/prolike/gitlabelwizard/labels/'+labelNameParsed)
     .reply(204, function(uri, requestBody) {
-
       //console.log('path:', this.req.path)
       //console.log('headers:', this.req.headers)
-      //expect()
     })
-    //.log(console.log);
     //.log(console.log);
     myFunctions.labelRemove(repoOwner,repoName,labelName,token);
     //console.log(scope.interceptors[0])

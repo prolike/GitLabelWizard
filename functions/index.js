@@ -1,41 +1,41 @@
 const functions = require('firebase-functions');
 const request = require('request');
 
-
+// Local variables
 apiUrl = "https://api.github.com";
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
 
+
+// HTTP ENTRY POINT
+// REQUEST METHOD : POST
+// REQUIRE VALID API KEY
 exports.callMe = functions.https.onRequest((request, response) => {
-
         var apiKey_param = request.query['api_key']
         var apiKey = exports.getApiKeyFromEnv()
         var token = exports.getBasicAuthTokenFromEnv()
         
-  
-        //console.log(apiKey_param)
-        if(apiKey_param === "undefined"){
-            response.status(403);
-            response.statusMessage = "Missing APIKEY!!"
-            return response.send("Missing APIKEY!!");
+        if (request.method !== 'POST'){
+             response.status(401);
+             response.statusMessage = "Forbidden request method"
+             return response.send('Forbidden request method');
+        }
+        else if(apiKey_param === undefined || apiKey_param === ""){
+            response.status(401);
+            response.statusMessage = "Missing API key"
+            return response.send("Missing API key");
         }
         else if(apiKey_param !== apiKey){
-            response.status(403);
-            response.statusMessage = "INVALID APIKEY!!"
-            return response.send("INVALID APIKEY");
+            response.status(401);
+            response.statusMessage = "Invalid API key"
+            return response.send("Invalid API key");
         }
-        else if (request.method !== 'POST'){
-             response.status(403);
-             response.statusMessage = "INVALID APIKEY!!"
-             return response.send('Forbidden request method!');
-        }
+        
         else if(request.method === 'POST' && apiKey_param === apiKey){
             var body = JSON.parse(request.body.payload)
             if(exports.validRequest(body)){
                 var repoOwner = body.repository.owner.login
                 var repoName = body.repository.name
                 exports.main(repoOwner,repoName,token)
-                response.status(202)
+                response.status(201)
                 return response.send('OK'); 
             }
             else{
@@ -54,8 +54,6 @@ exports.main = function(repoOwner, repoName,token) {
 
     var arrLabelsRemoveParsed = exports.labelRemoveFormatter(exports.getLabelsRemoveHardcoded())
     var arrLabelsAddParsed = exports.labelAddFormatter(exports.getLabelsAddHardcoded())
-
-  
     for(var labelObject2 of arrLabelsAddParsed){
         exports.labelAdd(repoOwner,repoName,labelObject2,token)
     }
@@ -149,15 +147,9 @@ exports.getApiKeyFromEnv = function() {
 //Adds an array of labels to a GitHub repository
 exports.labelsAddAll = function(repoOwner,repoName, labelArray, token) {
     //Loops through the given array of labels and uses each lable in the labelAdd() method
-    //console.log(labelArray);
     for(var label of labelArray){
-        //console.log(label);
         this.labelAdd(repoOwner, repoName, label, token);
     }
-    /*labelArray.forEach(function(label){
-        console.log(label);
-        exports.labelAdd(repoOwner, repoName, label, token);
-    });*/
 } 
 
 exports.labelsRemoveAll = function(repoOwner,repoName, labelArray, token) {
