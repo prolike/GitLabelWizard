@@ -134,16 +134,19 @@ $ firebase deploy --only functions --token={YOUR_FIREBASE_TOKEN_HERE}
 
 ## Running the tests
 To run the automated tests you need to be in the folder `/functions`.
+
 In your terminal from the project folder run
 ```
 $ cd functions
 ```
 Here you have to make sure you have the `/node_modules` folder installed.
+
 For this run
 ```
 $ sudo npm install
 ```
 You should now have the requirements to run the tests.
+
 Make sure you're still inside `/functions` and run
 ```
 $ npm test
