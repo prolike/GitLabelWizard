@@ -44,7 +44,7 @@ https://nodejs.org/en/download/
 
 #### 3. Configure firebase file
 
-Open `.firebasesrc` and change the default value to your **projectID**.
+Open `GitLabelWizard/.firebasesrc` and change the default value to your **projectID**.
 You can find your projectID from your firebase console.
 - Enter your firebase project
 - Click project settings
