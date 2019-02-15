@@ -19,10 +19,12 @@ Originally we started this project on AWS Lambda where we almost finished a work
 3. CircleCI account (optional)
 4. Git & Node.js installed
 ``` 
-## Firebase setup
+## Prepare your setup
 
-1. Create a project
-https://firebase.google.com/
+#### 1. Create a firebase account
+- https://firebase.google.com/
+
+#### 2. Create a new project
 
 
 
@@ -61,7 +63,7 @@ You can find your projectID from your firebase console.
 #### 4. Install firebase tools
 
 ```
-npm install -g firebase-tools
+$ npm install -g firebase-tools
 ```
 
 #### 5. Install npm modules
@@ -72,11 +74,6 @@ $ cd GitLabelWizard/functions
 $ cd npm install
 ```
 
-
-```
-$ cd GitLabelWizard/functions
-$ cd npm install
-```
 
 ## Running the tests
 To run the automated tests you need to be in the folder `functions/`.
@@ -152,7 +149,7 @@ $ firebase functions:config:set fb.apikey={YOUR_RANDOM_GENERATED_API_KEY} --toke
 $ firebase deploy --only functions --token={YOUR_FIREBASE_TOKEN_HERE}
 ```
 
-## Run the bot
+## Implement the bot for your project
 
 
 
