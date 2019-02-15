@@ -23,14 +23,21 @@ TODO
 ``` 
 ## Prepare your setup
 
+We will go though some few steps to prepare the setup that will run the GitLabelWizard Bot. 
+
 #### 1. Create a firebase account
+Visit the link, and create a account for yourself
 - https://firebase.google.com/
 
 #### 2. Create a new project
+You will now enter the console panel for your firebase account, and create a new project. We will be using this project as our serverless/cloud functions service to manipulate labels in Github repository. 
 
-
+#### 3. Find your ProjectID
+Enter your firebase project ->  Click project settings -> There you have your **project ID**
+Save the **ProjectID** for later use in installation. 
 
 ## Installation
+
 
 #### 1. Clone github repo
 
@@ -48,9 +55,7 @@ https://nodejs.org/en/download/
 
 Open `GitLabelWizard/.firebasesrc` and change the default value to your **projectID**.
 You can find your projectID from your firebase console.
-- Enter your firebase project
-- Click project settings
-- There you have your project ID
+
 
 ```
 {
