@@ -162,4 +162,4 @@ To expand this service, we would like to add the following features in the futur
 - To delete labels, we would then match the labels in the file to the existing labels on the repository and delete any labels not mentioned in the file. Here we would also ensure that the wizard only deletes labels that are not in use on any issue.
 - When the YML-file is edited by the repository owner, the wizard will read the file again and then create or delete any labels added to or removed from the file.
 
-Some of these features were actually already developed in the first part of the project when we were still running on AWS Lambda. The codebase (written in Python 3) for this can be found [here](https://github.com/prolike/GitLabelWizard/tree/master/backup).
+Some of these features were actually already developed in the first part of the project when we were still running on AWS Lambda. The codebase (written in Python 3) can be found [here](https://github.com/prolike/GitLabelWizard/tree/master/backup).
