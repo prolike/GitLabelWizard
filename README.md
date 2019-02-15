@@ -15,7 +15,7 @@ https://github.com/apps/gitlabelwizardbot
 1. A Firebase account with a Blaze plan* 
 * You need a account with blaze plan to be have any outbound connection but no worries it will be almost free anyway.
 2. A Firebase project created
-3. CircleCI account (optionial)
+3. CircleCI account (optional)
 4. Git & Node.js installed
 ``` 
 ## Firebase setup
@@ -104,7 +104,7 @@ This is your secret **GITHUB_BASIC_AUTHENTICATION_TOKEN** for the project, save 
 Write following in your terminal/commandline
 
 ```
-firebase login:ci
+$ firebase login:ci
 ```
 
 You will get prompted and redirected to a login screen for firebase, sign yourself in and then the token will be showed in terminal.
@@ -133,13 +133,13 @@ $ firebase deploy --only functions --token={YOUR_FIREBASE_TOKEN_HERE}
 
 
 ## Running the tests
-To run the automated tests you need to be in the folder `/functions`.
+To run the automated tests you need to be in the folder `functions/`.
 
-In your terminal from the project folder run
+In your terminal/command line from the project folder run
 ```
 $ cd functions
 ```
-Here you have to make sure you have the `/node_modules` folder installed.
+Here you have to make sure you have the `node_modules/` folder installed.
 
 For this run
 ```
@@ -147,7 +147,7 @@ $ sudo npm install
 ```
 You should now have the requirements to run the tests.
 
-Make sure you're still inside `/functions` and run
+Make sure you're still inside `functions/` and run
 ```
 $ npm test
 ```
