@@ -186,17 +186,24 @@ Now the firebase functions should be deployed and visible in firebase console pa
 
 ## Implement the bot for your project
 
-### Using the bot as a webhook for the organization or repository
+#### Using the bot as a webhook for the organization or repository
+
 Goto the organization or repository and put your **HTTP URL** and concat it with your API URL.
-**Firebase functions URL:** `{YOUR FIREBASE FUNCTION URL}`
-**API Key:** `{YOUR_RANDOM_GENERATED_API_KEY}`
-**Param:** : `api_key`
-**Webhook URL:** : `{YOUR FIREBASE FUNCTION URL}?api_key={YOUR_RANDOM_GENERATED_API_KEY}`
+
+* **Firebase functions URL:** `{YOUR FIREBASE FUNCTION URL}`
+
+* **API Key:** `{YOUR_RANDOM_GENERATED_API_KEY}`
+
+* **Param:** : `api_key`
+
+* **Webhook URL:** : `{YOUR FIREBASE FUNCTION URL}?api_key={YOUR_RANDOM_GENERATED_API_KEY}`
+
 So your webhook URL should look like: `https://us-central1-gitlabelwizard.cloudfunctions.net/helloWorld?api_key=nGNiMDYzMWVjMmE2ZGYxNGZkNTJmMjYz`
 
 Insert your Webhook URL in your github organization or repository that you have **owner access** to.
-Organization : https://github.com/organizations/{YOUR_ORGANIZATION_NAME}/settings/hooks
-Repository : https://github.com/{YOUR_GITHUB_ACCOUNTNAME}/{YOUR_REPOSITORY_NAME}/settings/hooks
+
+* Organization : https://github.com/organizations/{YOUR_ORGANIZATION_NAME}/settings/hooks
+* Repository : https://github.com/{YOUR_GITHUB_ACCOUNTNAME}/{YOUR_REPOSITORY_NAME}/settings/hooks
 
 ## Future development
 To expand this service, we would like to add the following features in the future:
