@@ -9,6 +9,10 @@ GitLabelWizard is a tool designed to automatically create and delete GitHub issu
 ## Background
 Originally we started this project on AWS Lambda where we almost finished a working product written in Python 3. Though, due to complications with local testing of Lambda and CircleCI implementation, we decided to move to Firebase, which meant that we had to rewrite our codebase to Javascript (Nodejs). We have included the old codebase [here](https://github.com/prolike/GitLabelWizard/tree/master/backup).
 
+## Flowchart
+
+![](https://github.com/prolike/GitLabelWizard/flowchart.png)
+
 ## GitLabelWizard REST API documentation
 
 #### REST API HTTP Request
