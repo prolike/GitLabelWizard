@@ -35,9 +35,8 @@ Originally we started this project on AWS Lambda where we almost finished a work
 1. A Firebase account with a Blaze plan* 
 * You need a account with blaze plan to be have any outbound connection,
 but no worries it will be almost free anyway.
-2. A Firebase project created
-3. CircleCI account (optional)
-4. Git & Node.js installed
+2. A Firebase project
+3. Git & Node.js installed
 ``` 
 ## Prepare your setup
 
