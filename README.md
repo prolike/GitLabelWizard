@@ -98,6 +98,22 @@ Make sure you're still inside `GitLabelWizard/functions/` and run
 $ npm test
 ```
 
+## Running the firebase functions locally
+
+You can now test your firebase function locally.
+The function will be invoked but not run correctly and will fail since the environment config is not yet set, we will do that later under deloyment.
+
+If you want to invoke the functions locally as a API service, then run this command:
+```
+$ sudo firebase serve
+```
+
+If you want to invoke the functions locally as a functions, then run this command:
+```
+$ sudo firebase functions:shell
+```
+
+
 
 ## Deployment guideline 
 
@@ -148,6 +164,8 @@ Example: firebase deploy --token "$FIREBASE_TOKEN"
 This is your secret **FIREBASE_TOKEN** for the project, save the key and dont expose it someplace!
 
 ## Deployment
+
+Now you have created a firebase project, installed the project locally and ran the test successfully.   
 
 ```
 $ firebase functions:config:set github.authkey={YOUR_GITHUB_BASIC_AUTHENTICATION_TOKEN} --token={YOUR_FIREBASE_TOKEN_HERE}
