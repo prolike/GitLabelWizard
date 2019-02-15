@@ -104,17 +104,20 @@ Write following in your terminal/commandline
 ```bash
 $ date +%s | sha256sum | base64 | head -c 32 ; echo 
 ```
-You will get something likely: 
+You will get something like: 
 `$ nGNiMDYzMWVjMmE2ZGYxNGZkNTJmMjYz`
+
 This is your secret **RANDOM_GENERATED_API_KEY** for the project, save the api key and dont expose it someplace!
+
 #### 2. Your basic authentication token for github project (Base64)
+
 Write following in your terminal/
 
 ```bash
 $ echo username:password | base64
 ```
 
-You will get something likely
+You will get something like:
 `$ eGF4YW5zdHhheGFzOnNhc2RICg==`
 
 This is your secret **GITHUB_BASIC_AUTHENTICATION_TOKEN** for the project, save the key and dont expose it someplace!
