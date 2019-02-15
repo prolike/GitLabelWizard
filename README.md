@@ -5,11 +5,13 @@
 
 GitLabelWizard is a tool designed to automatically create and delete GitHub issue labels upon the creation of a new GitHub repository. This is done by using a GitHub app ([GitLabelWizardBot](https://github.com/apps/gitlabelwizardbot)) and [Firebase](https://firebase.google.com/docs/functions/) Cloud Functions, which will manipulate labels through [Github API](https://developer.github.com/v3/issues/labels/).
 
-## GitLabelWizardBot Github App
-https://github.com/apps/gitlabelwizardbot
 
 ## Background
 Originally we started this project on AWS Lambda where we almost finished a working product written in Python 3. Though, due to complications with local testing of Lambda and CircleCI implementation, we decided to move to Firebase, which meant that we had to rewrite our codebase to Javascript (Nodejs). We have included the old codebase [here](https://github.com/prolike/GitLabelWizard/tree/master/backup).
+
+## GitLabelWizard API documentation
+
+TODO
 
 ## Prerequisites
 ```
@@ -63,7 +65,7 @@ You can find your projectID from your firebase console.
 #### 4. Install firebase tools
 
 ```
-$ npm install -g firebase-tools
+$ sudo npm install -g firebase-tools
 ```
 
 #### 5. Install npm modules
@@ -71,7 +73,7 @@ $ npm install -g firebase-tools
 
 ```
 $ cd GitLabelWizard/functions
-$ cd npm install
+$ cd sudo npm install
 ```
 
 
@@ -84,13 +86,9 @@ $ cd functions
 ```
 Here you have to make sure you have the `node_modules/` folder installed.
 
-For this run
-```
-$ sudo npm install
-```
 You should now have the requirements to run the tests.
 
-Make sure you're still inside `functions/` and run
+Make sure you're still inside `GitLabelWizard/functions/` and run
 ```
 $ npm test
 ```
@@ -154,6 +152,11 @@ $ firebase deploy --only functions --token={YOUR_FIREBASE_TOKEN_HERE}
 
 ## Implement the bot for your project
 
+### Using the bot as a webhook for the organization or repository
+...
+
+### Using the bot as a Github App for the organization or repository or user
+...
 
 
 ## Future development
