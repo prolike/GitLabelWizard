@@ -101,7 +101,7 @@ $ npm test
 ## Running the firebase functions locally
 
 You can now test your firebase function locally.
-The function will be invoked but not run correctly and will fail since the environment config is not yet set, we will do that later under deloyment.
+The function will be invoked but not run correctly and will fail since the environment config is not yet set, we will do that later under deloyment. Read the [documentation](https://firebase.google.com/docs/functions/local-emulator).
 
 If you want to invoke the functions locally as a API service, then run this command:
 ```
@@ -117,7 +117,7 @@ $ sudo firebase functions:shell
 
 ## Deployment guideline 
 
-In order to deploy the project into a firebase functions, you need to gain following tokens:
+In order to deploy the project into a firebase functions, you need to generate 3x tokens:
 #### 1. A random generated API key
 Write following in your terminal/commandline
 ```bash
@@ -133,7 +133,7 @@ This is your secret **RANDOM_GENERATED_API_KEY** for the project, save the api k
 Write following in your terminal/
 
 ```bash
-$ echo username:password | base64
+$ echo yourgithubusername:yourgithubpassword | base64
 ```
 
 You will get something like:
@@ -165,22 +165,31 @@ This is your secret **FIREBASE_TOKEN** for the project, save the key and dont ex
 
 ## Deployment
 
-Now you have created a firebase project, installed the project locally and ran the test successfully.   
-
+Hereby you have created a firebase project, installed the project locally and ran the test successfully.
+Now your project is ready for the deployment to firebase cloud functions.
+Run following commands to deploy.
 ```
 $ firebase functions:config:set github.authkey={YOUR_GITHUB_BASIC_AUTHENTICATION_TOKEN} --token={YOUR_FIREBASE_TOKEN_HERE}
 $ firebase functions:config:set fb.apikey={YOUR_RANDOM_GENERATED_API_KEY} --token={YOUR_FIREBASE_TOKEN_HERE}
 $ firebase deploy --only functions --token={YOUR_FIREBASE_TOKEN_HERE}
 ```
 
+Now the firebase functions should be deployed and visible in firebase console panel under "functions". There you can aswell find the **HTTP URL** for api entrypoint. This url you will be using for setting up the **Webhook**.
+
 ## Implement the bot for your project
 
 ### Using the bot as a webhook for the organization or repository
-...
+Goto the organization or repository and put your **HTTP URL** and concat it with your API URL.
+**Firebase functions URL:** `{YOUR FIREBASE FUNCTION URL}`
+**API Key:** `{YOUR_RANDOM_GENERATED_API_KEY}`
+**Param:** : `api_key`
+**Webhook URL:** : `{YOUR FIREBASE FUNCTION URL}?api_key={YOUR_RANDOM_GENERATED_API_KEY}`
+It should looke like `https://us-central1-gitlabelwizard.cloudfunctions.net/helloWorld?api_key=nGNiMDYzMWVjMmE2ZGYxNGZkNTJmMjYz`
 
-### Using the bot as a Github App for the organization or repository or user
-...
+Insert your Webhook URL in your github organization or repository that you have **owner access** to.
 
+Organization : https://github.com/organizations/{YOUR_ORGANIZATION_NAME}/settings/hooks
+Repository : https://github.com/{YOUR_GITHUB_ACCOUNTNAME}/{YOUR_REPOSITORY_NAME}/settings/hooks
 
 ## Future development
 To expand this service, we would like to add the following features in the future:
