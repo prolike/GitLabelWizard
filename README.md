@@ -3,7 +3,7 @@
 
 # GitLabelWizard 1.0.0 [![CircleCI](https://circleci.com/gh/prolike/GitLabelWizard/tree/master.svg?style=svg)](https://circleci.com/gh/prolike/GitLabelWizard/tree/master) [![GitHub issues open](https://img.shields.io/github/issues/Prolike/gitlabelwizard.svg?maxAge=2592000)](https://github.com/prolike/GitLabelWizard/issues)
 
-
+GitLabelWizard is a tool designed to automatically create and delete GitHub issue labels upon the creation of a new GitHub repository. This is done by using a GitHub app ([GitLabelWizardBot](https://github.com/apps/gitlabelwizardbot)) and [Firebase](https://firebase.google.com/docs/functions/) Cloud Functions.
 
 
 ## GitLabelWizardBot Github App
@@ -131,3 +131,31 @@ $ firebase deploy --only functions --token={YOUR_FIREBASE_TOKEN_HERE}
 
 ## Run the bot
 
+
+## Running the tests
+To run the automated tests you need to be in the folder `/functions`.
+In your terminal from the project folder run
+```
+$ cd functions
+```
+Here you have to make sure you have the `/node_modules` folder installed.
+For this run
+```
+$ sudo npm install
+```
+You should now have the requirements to run the tests.
+Make sure you're still inside `/functions` and run
+```
+$ npm test
+```
+
+## Background
+Originally we started this project on AWS Lambda, where we actually almost finished a working product written in Python 3. Though, due to complications with local testing of Lambda and CircleCI implementation we decided to move to Firebase, which meant that we had to rewrite our codebase to Javascript (Nodejs). We have included the old codebase [here](https://github.com/prolike/GitLabelWizard/tree/master/backup).
+
+## Future development
+To expand this service, we would like to add the following features in the future:
+- Instead of having the labels stored locally, we would want the labels to be in a YML-file, which the wizard then reads to create labels.
+- To delete labels, we would then match the labels in the file to the existing labels on the repository and delete any labels not mentioned in the file. Here we would also ensure that the wizard only deletes labels that are not in use on any issue.
+- When the YML-file is edited by the repository owner, the wizard will read the file again and then create or delete any labels added to or removed from the file.
+
+Some of these features were actually already developed in the first part of the project when we were still running on AWS Lambda. The codebase (written in Python 3) for this can be found [here](https://github.com/prolike/GitLabelWizard/tree/master/backup).
