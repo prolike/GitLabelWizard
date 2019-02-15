@@ -11,7 +11,7 @@ Originally we started this project on AWS Lambda where we almost finished a work
 
 ## Flowchart
 
-![](https://github.com/prolike/GitLabelWizard/FirebaseFlowChart.png.png)
+![](https://raw.githubusercontent.com/prolike/GitLabelWizard/master/FirebaseFlowChart.png)
 
 ## GitLabelWizard REST API documentation
 
