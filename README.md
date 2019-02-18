@@ -111,11 +111,7 @@ $ cd sudo npm install
 
 ## Running the tests
 To run the automated tests you need to be in the folder `GitLabelWizard/functions/`.
-You have to make sure you have the `GitLabelWizard/functions/node_modules/` folder installed. If not, please run `npm install`. 
-
-```
-$ sudo npm install
-```
+You have to make sure you have the `GitLabelWizard/functions/node_modules/` folder installed. If not, please redo part 5 in the installation guideline.
 
 You should now have the requirements to run the tests.
 
