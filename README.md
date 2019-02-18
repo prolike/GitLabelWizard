@@ -5,11 +5,19 @@
 
 GitLabelWizard is a tool designed to automatically create and delete GitHub issue labels upon the creation of a new GitHub repository. This is done by using a GitHub app ([GitLabelWizardBot](https://github.com/apps/gitlabelwizardbot)) and [Firebase](https://firebase.google.com/docs/functions/) Cloud Functions, which will manipulate labels through [Github API](https://developer.github.com/v3/issues/labels/).
 
-
 ## Background
+The goal for this project was to solve the following issue:
+
+_Everytime we create a new repository, we need to have the labels in GitHub issues set up right in order to use it in our agile planning, our Git Phlow and on Waffle.io.
+Git repos on GitHub comes with a set of predefined labels, but they don’t match what we need and should be removed. Currently we have scripts that can set this up for us, but the problem with this method is_
+* _The scripts run locally on a machine, in the repo they must set the labels in - so the repo needs to be cloned to the machine where the scripts executes._
+* _The scripts has a dependency to [GHI](https://github.com/stephencelis/ghi) which must be installed prior to running the scripts._
+* _The scripts includes both the information about what needs to be done and how it should be done (not separating what from how)._
+
 Originally we started this project on AWS Lambda where we almost finished a working product written in Python 3. Though, due to complications with local testing of Lambda and CircleCI implementation, we decided to move to Firebase, which meant that we had to rewrite our codebase to Javascript (Nodejs). We have included the old codebase [here](https://github.com/prolike/GitLabelWizard/tree/master/backup).
 
-## Flowchart
+## Solution
+By using serverless functions (in this case on Firebase) we make HTTP requests to the GitHub label API to create our desired labels and delete the default ones. These functions are called by our [GitHub App](https://developer.github.com/apps/) (GitLabelWizardBot) through a webhook, which is triggered when a new repository is created. Seen below is a flowchart describing the process.
 
 ![](https://raw.githubusercontent.com/prolike/GitLabelWizard/master/FirebaseFlowChart.png)
 
