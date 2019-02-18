@@ -19,7 +19,7 @@ Originally we started this project on AWS Lambda where we almost finished a work
 ## Solution
 By using serverless functions (in this case on Firebase) we make HTTP requests to the GitHub label API to create our desired labels and delete the default ones. These functions are called by our [GitHub App](https://developer.github.com/apps/) (GitLabelWizardBot) through a webhook, which is triggered when a new repository is created. Seen below is a flowchart describing the process.
 
-![](https://raw.githubusercontent.com/prolike/GitLabelWizard/master/FirebaseFlowChart.png)
+![](https://raw.githubusercontent.com/prolike/GitLabelWizard/master/FirebaseFlowChart2.png)
 
 ## GitLabelWizard REST API documentation
 
